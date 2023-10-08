@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { Suspender } from 'src/components/atoms/Suspender'
+import { Suspender } from 'src/components/molecules/Suspender'
+import { ErrorPage } from 'src/components/molecules/ErrorPage'
 import { Home } from 'src/components/pages/Home'
-import { ErrorPage } from 'src/components/atoms/ErrorPage'
 
-export const router = createBrowserRouter([
+export const ROUTES = createBrowserRouter([
   {
     path: '/',
     element: <Home />,

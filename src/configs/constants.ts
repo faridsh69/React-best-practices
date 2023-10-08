@@ -1,3 +1,5 @@
+import { DARK_THEME, LIGHT_THEME } from 'src/configs/theme'
+
 export const PENDING_STATUS = 'pending'
 export const SUCCESS_STATUS = 'success'
 export const FAILED_STATUS = 'failed'
@@ -21,6 +23,17 @@ export const META_TAGS = {
   image: 'vite.svg',
   author: 'Farid Shahidi',
   domain: 'www.test.com',
+}
+
+export const EN_LANGUAGE = 'en'
+export const DE_LANGUAGE = 'de'
+
+export const LIGHT_THEME_NAME = 'light'
+export const DARK_THEME_NAME = 'dark'
+
+export const THEMES = {
+  [LIGHT_THEME_NAME]: LIGHT_THEME,
+  [DARK_THEME_NAME]: DARK_THEME,
 }
 
 export const LOCAL_STORAGE_FILTERS_HISTORY = 'filters_history'
