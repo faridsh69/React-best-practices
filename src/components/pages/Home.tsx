@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@mui/material'
 import Container from '@mui/material/Container'
 
-import { themeAtom } from 'src/contexts/themeAtom'
 import { DARK_THEME_NAME, LIGHT_THEME_NAME } from 'src/configs/constants'
+import { themeAtom } from 'src/contexts/themeAtom'
+import { useCrud } from 'src/hooks/useCrud'
 
 export const Home = () => {
   const { t, i18n } = useTranslation()
@@ -20,6 +21,9 @@ export const Home = () => {
     setTheme(theme === DARK_THEME_NAME ? LIGHT_THEME_NAME : DARK_THEME_NAME)
   }
 
+  const x = useCrud('blogs')
+  console.log('1 x', x)
+
   return (
     <Container component='main' maxWidth='xl'>
       <Button variant='contained' onClick={changeLanguage}>
@@ -30,7 +34,7 @@ export const Home = () => {
       </Button>
       {t('hello wolrd')}
       <br />
-      <Link to='admin'>admin </Link>
+      <Link to='admin'>Admin</Link>
     </Container>
   )
 }

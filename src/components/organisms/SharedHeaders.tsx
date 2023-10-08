@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { META_TAGS } from 'src/configs/constants'
-import { useCheckInternetConnection } from 'src/hooks/useCheckInternetConnection'
+import { useInternetConnection } from 'src/hooks/useInternetConnection'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -14,7 +14,7 @@ import '@fontsource/roboto/700.css'
 export const SharedHeaders = () => {
   const { title, description, keywords, image, author, domain } = META_TAGS
 
-  useCheckInternetConnection()
+  useInternetConnection()
 
   return (
     <div>
