@@ -8,7 +8,8 @@
     "start": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -33,5 +34,10 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit"
+    }
   }
 }
