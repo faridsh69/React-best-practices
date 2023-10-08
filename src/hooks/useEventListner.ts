@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 
 export const useEventListener = (eventName, action, dependencies = []) => {
   useEffect(() => {
-    document.addEventListener(eventName, action)
+    window.addEventListener(eventName, action)
 
     return () => {
-      document.removeEventListener(eventName, action)
+      window.removeEventListener(eventName, action)
     }
   }, dependencies)
 }

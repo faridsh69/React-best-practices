@@ -14,6 +14,15 @@ export const breakLine = '\r\n'
 export const UNAUTHORIZED_RESPONSE_STATUS_CODE = 401
 export const CANCELED_API_BY_USER = 'canceled'
 
+export const META_TAGS = {
+  title: 'React Best Practices',
+  description: 'React Best Practices boilerplate',
+  keywords: 'react, boilerplate',
+  image: 'vite.svg',
+  author: 'Farid Shahidi',
+  domain: 'www.test.com',
+}
+
 export const LOCAL_STORAGE_FILTERS_HISTORY = 'filters_history'
 export const LS_SETTINGS_CURRENT_SECTION = 'settingsCurrentSection'
 
