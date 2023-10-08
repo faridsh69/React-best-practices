@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 
 import { RouterProvider } from 'react-router-dom'
 import { router } from 'src/configs/router'
-import 'src/configs/i18nextInstance'
+import 'src/configs/locale'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
