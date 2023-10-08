@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react'
 
 export const Suspender = props => {
-  const { pageName } = props
-  const LazyComponent = React.lazy(() => import(`../pages/${pageName}`))
+  const { pageName = 'AdminLayout' } = props
+  const LazyComponent = React.lazy(() => import(`../pages/${pageName}.tsx`))
 
   return (
     <div>
