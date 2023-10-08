@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+yarn-error.log
+yarn.lock
+package-lock.json
