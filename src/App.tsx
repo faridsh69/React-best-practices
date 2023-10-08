@@ -6,9 +6,9 @@ import { ThemeProvider } from '@emotion/react'
 import { ROUTES } from 'src/configs/router'
 import { themeAtom } from 'src/contexts/themeAtom'
 import { SharedHeaders } from 'src/components/organisms/SharedHeaders'
-import 'src/configs/locale'
 import { THEMES } from './configs/constants'
 import { REACT_QUERY_CLIENT } from 'src/configs/service'
+import 'src/configs/locale'
 
 export const App = () => {
   const [theme] = useAtom(themeAtom)

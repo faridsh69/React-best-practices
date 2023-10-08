@@ -6,17 +6,31 @@ import { CRUD_APIS } from 'src/configs/service'
 export const useCrud = (QUERY_LIST_KEY = 'blogs', params = {}) => {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
-  const { listApi, createApi, updateApi, deleteApi } = CRUD_APIS[QUERY_LIST_KEY] || {}
+  const { listApi, showApi, createApi, updateApi, deleteApi } = CRUD_APIS[QUERY_LIST_KEY] || {}
 
-  const { data: list, isLoading } = useQuery({
-    queryKey: [QUERY_LIST_KEY],
+  // const { data: list, isLoading } = useQuery({
+  //   queryKey: [QUERY_LIST_KEY],
+  //   queryFn: async () => {
+  //     if (!listApi) return
+  //     const { data } = await listApi(params)
+
+  //     return data.data
+  //   },
+  //   placeholderData: [],
+  //   onError: error => {
+  //     toast.error(error?.response?.data)
+  //   },
+  // })
+
+  const { data: item } = useQuery({
+    queryKey: [QUERY_LIST_KEY, params],
     queryFn: async () => {
       if (!listApi) return
-      const { data } = await listApi(params)
+      const { data } = await showApi(params)
 
-      return data.data
+      return data.order
     },
-    placeholderData: [],
+    placeholderData: null,
     onError: error => {
       toast.error(error?.response?.data)
     },
@@ -65,10 +79,11 @@ export const useCrud = (QUERY_LIST_KEY = 'blogs', params = {}) => {
   })
 
   return {
-    list,
+    // list,
+    // isLoading,
+    item,
     createMutation,
     updateMutation,
     deleteMutation,
-    isLoading,
   }
 }
