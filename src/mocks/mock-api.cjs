@@ -9,6 +9,7 @@ module.exports = (req, res) => {
     if (order.zip_code !== zipCode) continue
     findOrder = order
   }
+
   if (findOrder) {
     res.status(200).json({
       status: 'success',
