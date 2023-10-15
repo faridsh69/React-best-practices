@@ -4,7 +4,7 @@ import { Suspender } from 'src/components/molecules/Suspender'
 import { ErrorPage } from 'src/components/molecules/ErrorPage'
 import { Home } from 'src/components/pages/Home'
 
-export const ROUTES = createBrowserRouter([
+const ROUTES = [
   {
     path: '/',
     element: <Home />,
@@ -33,4 +33,6 @@ export const ROUTES = createBrowserRouter([
       },
     ],
   },
-])
+]
+
+export const Router = createBrowserRouter(ROUTES)
