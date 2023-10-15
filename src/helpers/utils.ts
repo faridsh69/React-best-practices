@@ -48,80 +48,6 @@ export const sortAlphabetically = (array, keyInObject, ordering = 'asc') => {
   })
 }
 
-export const getTranslatedMessage = (error, langPrefix) => {
-  const errorTranslated = langPrefix ? langPrefix + '.' + error : error
-  if (i18nextTasks.exists(errorTranslated)) {
-    return i18nextTasks.t(errorTranslated)
-  }
-
-  return error
-}
-
-const getErrorMessage = (error, methodName = '', langPrefix = '') => {
-  if (!error) {
-    return i18nextTasks.t('Something went wrong')
-  }
-
-  if (typeof error === 'string') {
-    if (
-      error === 'Network Error' ||
-      error.includes('502 Bad Gateway') ||
-      error.includes('<title>Error</title>') ||
-      error.includes('<title>500 Internal Server Error</title>')
-    ) {
-      return i18nextTasks.t('Please check your VPN and internet connection')
-    }
-
-    if (error.includes('503 Service Temporarily Unavailable')) {
-      return i18nextTasks.t('Maintenance mode, we will back soon')
-    }
-
-    if (error === CANCELED_API_BY_USER) {
-      return ''
-    }
-
-    return getTranslatedMessage(error, langPrefix)
-  }
-
-  if (typeof error === 'object') {
-    if (error instanceof Error) {
-      return `Error in ${methodName}:${breakLine}(${error.name}) - ${error.message}`
-    }
-
-    const code = error.code ? `${breakLine} (${error.code})` : null
-
-    if (typeof error.error === 'string') {
-      return getErrorMessage(error.error, '', langPrefix) + code
-    }
-
-    if (typeof error.error === 'object') {
-      const errorsCategorisedByAttribute = Object.values(error.error)
-      const errors = [].concat(...errorsCategorisedByAttribute)
-      const errorsWithTranslation = errors
-        .filter(error => typeof error === 'string')
-        .map(error => getTranslatedMessage(error, langPrefix))
-      const uniqueErrors = makeUniqueArray(errorsWithTranslation)
-
-      return uniqueErrors.join(breakLine) + code
-    }
-
-    if (typeof error.message === 'string') {
-      return getErrorMessage(error.message, '', langPrefix)
-    }
-  }
-}
-
-export const toastErrorMessage = (error, methodName = '', langPrefix = '') => {
-  const message = getErrorMessage(error, methodName, langPrefix)
-  if (!message) return
-  if (isDevelopmentOrStage()) {
-    console.warn('Error:', error)
-    console.warn('MethodName: ', methodName)
-    console.warn('Message:', message)
-  }
-  toastError({ message })
-}
-
 export const makeUniqueArray = initialArray => {
   const arrayOfJsons = initialArray.map(value => JSON.stringify(value))
 
@@ -177,6 +103,46 @@ export const saveLastStateOfFilters = (filterName, filterValue) => {
 export const shortenString = (string, maxLength, ending = '...') =>
   string.length > maxLength ? `${string.slice(0, maxLength - ending.length)}${ending}` : string
 
+export const stopPropagation = e => e.stopPropagation()
+
+export function debounceMethodWithAllPromises(funcx, debounceTime = 500) {
+  let timer = null
+  let resolves = []
+
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      const result = funcx(...args)
+      resolves.forEach(r => r(result))
+      resolves = []
+    }, debounceTime)
+
+    /*eslint no-promise-executor-return: "off"*/
+    return new Promise(resolve => {
+      resolves.push(resolve)
+    })
+  }
+}
+
+export function debounceMethodWithPromise(funcx, debounceTime = 500) {
+  let timer = null
+  let lastResolvMethod = null
+
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      const result = funcx(...args)
+      lastResolvMethod(result)
+      lastResolvMethod = null
+    }, debounceTime)
+
+    /*eslint no-promise-executor-return: "off"*/
+    return new Promise(resolve => {
+      lastResolvMethod = resolve
+    })
+  }
+}
+
 export function debounceMethod(funcx, debounceTime = 500) {
   let timer
 
@@ -187,5 +153,3 @@ export function debounceMethod(funcx, debounceTime = 500) {
     }, debounceTime)
   }
 }
-
-export const stopPropagation = e => e.stopPropagation()

@@ -1,0 +1,18 @@
+{
+  "foods": [
+    {
+      "id": "1",
+      "created": "2023-01-01T08:20:30Z",
+      "updated": "2023-01-02T14:10:30Z",
+      "title": "chees burger",
+      "slug": "chees-burger"
+    },
+    {
+      "_id": "2",
+      "created": "2023-01-20T06:20:30Z",
+      "updated": "2023-01-22T13:10:30Z",
+      "title": "chicken burger",
+      "slug": "chicken-burger"
+    }
+  ]
+}

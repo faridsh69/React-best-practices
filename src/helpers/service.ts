@@ -1,23 +1,34 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
+import {
+  ErrorHandlerInterceptorType,
+  TokenInterceptorType,
+  CreateApiClientType,
+  ApiGetType,
+  ApiPostType,
+  ApiPutType,
+  ApiRemoveType,
+} from 'src/interfaces'
 
-export function createApiClient(baseURL, auth) {
-  const axiosInstance = axios.create({ baseURL })
+export const createApiClient: CreateApiClientType = (baseURL, auth = false) => {
+  const axiosInstance: AxiosInstance = axios.create({ baseURL })
   axiosInstance.interceptors.response.use(null, errorHandlerInterceptor)
   if (auth) {
     axiosInstance.interceptors.request.use(tokenInterceptor)
   }
 
-  const get = ({ endpoint, params, options }) =>
+  const get: ApiGetType = ({ endpoint, params, options }) =>
     axiosInstance.get(endpoint, {
       params,
       ...options,
     })
 
-  const post = ({ endpoint, data, options }) => axiosInstance.post(endpoint, data, options)
+  const post: ApiPostType = ({ endpoint, data, options }) =>
+    axiosInstance.post(endpoint, data, options)
 
-  const put = ({ endpoint, data, options }) => axiosInstance.put(endpoint, data, options)
+  const put: ApiPutType = ({ endpoint, data, options }) =>
+    axiosInstance.put(endpoint, data, options)
 
-  const remove = ({ endpoint, params, options }) =>
+  const remove: ApiRemoveType = ({ endpoint, params, options }) =>
     axiosInstance.delete(endpoint, {
       params,
       ...options,
@@ -26,15 +37,15 @@ export function createApiClient(baseURL, auth) {
   return { get, post, put, remove }
 }
 
-const tokenInterceptor = config => {
+const tokenInterceptor: TokenInterceptorType = config => {
   const user = localStorage.getItem('user')
   const { access_token: accessToken } = JSON.parse(user || '{}')
-  config.headers.Authorization = `Bearer ${accessToken}`
+  config.headers!.Authorization = `Bearer ${accessToken}`
 
   return config
 }
 
-const errorHandlerInterceptor = async error => {
+const errorHandlerInterceptor: ErrorHandlerInterceptorType = error => {
   if (error?.response?.data) {
     // if error is server error return server response
     return Promise.reject(error.response.data)

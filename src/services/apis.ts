@@ -1,18 +1,20 @@
 import { createApiClient } from 'src/helpers/service'
 
 const { VITE_PARCEL_LAB_API } = import.meta.env
-console.log('1 VITE_PARCEL_LAB_API', VITE_PARCEL_LAB_API)
+
+if (!VITE_PARCEL_LAB_API) {
+  throw new Error('Please copy .env.example to .env.local')
+}
+
 const VITE_API_CLIENT = createApiClient(VITE_PARCEL_LAB_API)
 
-export const getOrders = () =>
+export const getFoods = params =>
   VITE_API_CLIENT.get({
-    endpoint: 'orders',
+    endpoint: 'foods',
+    params,
   })
 
-export const getOrder = params =>
+export const getFood = foodId =>
   VITE_API_CLIENT.get({
-    endpoint: `orders/${params.orderNumber}`,
-    params: {
-      zip: params.zipCode,
-    },
+    endpoint: `orders/${foodId}`,
   })

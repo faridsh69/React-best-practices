@@ -1,89 +1,101 @@
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
-import { CRUD_APIS } from 'src/configs/service'
+import { API_KEY_MAP } from 'src/configs/service'
+import { useDebounceMethodWithPromise } from 'src/hooks/useDebounceMethod'
 
-export const useCrud = (QUERY_LIST_KEY = 'blogs', params = {}) => {
+export const useCrud = QUERY_LIST_KEY => {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
-  const { listApi, showApi, createApi, updateApi, deleteApi } = CRUD_APIS[QUERY_LIST_KEY] || {}
 
-  // const { data: list, isLoading } = useQuery({
-  //   queryKey: [QUERY_LIST_KEY],
-  //   queryFn: async () => {
-  //     if (!listApi) return
-  //     const { data } = await listApi(params)
+  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[QUERY_LIST_KEY]
 
-  //     return data.data
-  //   },
-  //   placeholderData: [],
-  //   onError: error => {
-  //     toast.error(error?.response?.data)
-  //   },
-  // })
-
-  const { data: item } = useQuery({
-    queryKey: [QUERY_LIST_KEY, params],
+  const { data: list, isFetching } = useQuery({
+    queryKey: [QUERY_LIST_KEY],
     queryFn: async () => {
-      if (!listApi) return
-      const { data } = await showApi(params)
+      if (!listApi) return null
+      const { data } = await listApi()
 
-      return data.order
+      return data.data
     },
-    placeholderData: null,
-    onError: error => {
-      toast.error(error?.response?.data)
-    },
+    placeholderData: [],
+    onError: error => toast.error(error),
   })
 
   const createMutation = useMutation(createApi, {
     onSuccess: response => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list => [...list, response.data.data])
+      queryClient.setQueryData(QUERY_LIST_KEY, list => {
+        if (list) return [...list, response.data.data]
+
+        return [response.data.data]
+      })
       toast.success(t(QUERY_LIST_KEY + ' created successfully'))
     },
-    onError: error => {
-      toast.error(error?.response?.data)
-    },
+    onError: error => toast.error(error),
   })
 
-  const updateMutation = useMutation(updateApi, {
+  useQuery({ queryKey: ['oldUpdatedItem'], queryFn: () => null })
+
+  const debouncedUpdateApi = useDebounceMethodWithPromise(updateApi)
+
+  const debounceUpdateMutation = useMutation(debouncedUpdateApi, {
     onMutate: updatingItem => {
-      const oldItem = list.find(item => item.id === updatingItem.id)
       queryClient.setQueryData(QUERY_LIST_KEY, list =>
-        list.map(item => (item.id === updatingItem.id ? updatingItem : item)),
+        list.map(item =>
+          item.id !== updatingItem.id
+            ? item
+            : {
+                ...item,
+                ...updatingItem,
+              },
+        ),
       )
+
+      // ['todos', newTodo.id]
+      const oldUpdatedItem = queryClient.getQueryData('oldUpdatedItem')
+      if (oldUpdatedItem) return oldUpdatedItem
+
+      const oldItem = list.find(item => item.id === updatingItem.id)
+      queryClient.setQueryData('oldUpdatedItem', () => oldItem)
+
       return oldItem
     },
     onSuccess: response => {
-      const updatedData = response.data.data
+      const updatedData = response?.data?.data
       queryClient.setQueryData(QUERY_LIST_KEY, list =>
         list.map(item => (item.id === updatedData.id ? updatedData : item)),
       )
       toast.success(t(QUERY_LIST_KEY + ' updated successfully'))
+      // ['todos', newTodo.id]
+      queryClient.setQueryData('oldUpdatedItem', () => null)
     },
     onError: (error, updatingData, oldItem) => {
       queryClient.setQueryData(QUERY_LIST_KEY, list =>
         list.map(item => (item.id === oldItem.id ? oldItem : item)),
       )
-      toast.error(error?.response?.data)
+      // ['todos', newTodo.id]
+      queryClient.setQueryData('oldUpdatedItem', () => null)
+
+      toast.error(error)
     },
   })
 
   const deleteMutation = useMutation(deleteApi, {
     onSuccess: (_, id) => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list => list.filter(item => item.id !== id))
+      queryClient.setQueryData(QUERY_LIST_KEY, list => {
+        if (list) return list.filter(item => item.id !== id)
+
+        return []
+      })
     },
-    onError: error => {
-      toast.error(error?.response?.data)
-    },
+    onError: error => toast.error(error),
   })
 
   return {
-    // list,
-    // isLoading,
-    item,
+    list,
+    isFetching,
     createMutation,
-    updateMutation,
+    debounceUpdateMutation,
     deleteMutation,
   }
 }

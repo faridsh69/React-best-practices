@@ -21,11 +21,9 @@ export const Home = () => {
     setTheme(theme === DARK_THEME_NAME ? LIGHT_THEME_NAME : DARK_THEME_NAME)
   }
 
-  const { item } = useCrud('orders', {
-    orderNumber: '0000RTAB1',
-    zipCode: '60156',
+  useCrud('foods', {
+    slug: 'chees-burger',
   })
-  console.log('1 item', item)
 
   return (
     <Container component='main' maxWidth='xl'>

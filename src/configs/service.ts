@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query'
 
-import { getOrder, getOrders } from 'src/services/apis'
+import { getFood, getFoods } from 'src/services/apis'
 
 export const REACT_QUERY_CLIENT = new QueryClient({
   defaultOptions: {
@@ -13,12 +13,9 @@ export const REACT_QUERY_CLIENT = new QueryClient({
   },
 })
 
-export const CRUD_APIS = {
-  blogs: {
-    listApi: getOrders,
-    showApi: getOrder,
-    // createApi: createProject,
-    // updateApi: updateProject,
-    // deleteApi: deleteProject
+export const API_KEY_MAP = {
+  foods: {
+    listApi: getFoods,
+    showApi: getFood,
   },
 }
