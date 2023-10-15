@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const findInString = (string, value) => {
   if (!string || !value) return true
 

@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { debounceMethod, debounceMethodWithPromise } from 'src/helpers/utils'
+import { debounceMethod, debounceMethodWithPromise } from 'src/helpers/common'
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
 export const useDebounceMethod = method => useCallback(debounceMethod(method), [method])

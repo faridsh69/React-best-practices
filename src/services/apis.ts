@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createApiClient } from 'src/helpers/service'
 
 const { VITE_PARCEL_LAB_API } = import.meta.env

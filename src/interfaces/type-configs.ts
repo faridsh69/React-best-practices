@@ -1,3 +1,5 @@
+export type RoutesType = RouteType[]
+
 export type RouteType = {
   name: string
   path: string

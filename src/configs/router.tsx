@@ -3,8 +3,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Suspender } from 'src/components/molecules/Suspender'
 import { ErrorPage } from 'src/components/molecules/ErrorPage'
 import { Home } from 'src/components/pages/Home'
+import { RoutesType } from 'src/interfaces'
 
-const ROUTES = [
+const ROUTES: RoutesType = [
   {
     name: 'home',
     path: '/',

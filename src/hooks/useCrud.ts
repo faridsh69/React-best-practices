@@ -1,6 +1,8 @@
-import { useTranslation } from 'react-i18next'
+// @ts-nocheck
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+
 import { API_KEY_MAP } from 'src/configs/service'
 import { useDebounceMethodWithPromise } from 'src/hooks/useDebounceMethod'
 

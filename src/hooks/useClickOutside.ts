@@ -5,20 +5,20 @@ export const useClickOutside = () => {
 
   const dropdownBlockRef = useRef()
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const handleToggleOpenBox = useCallback(() => {
-    setOpenBox(prev => !prev)
-  }, [])
-
   const handleClickOutside = useCallback(({ target }) => {
     if (dropdownBlockRef.current && dropdownBlockRef.current.contains(target)) return
 
     setOpenBox(false)
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [handleClickOutside])
+
+  const handleToggleOpenBox = useCallback(() => {
+    setOpenBox(prev => !prev)
   }, [])
 
   return [dropdownBlockRef, openBox, handleToggleOpenBox]
