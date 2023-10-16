@@ -13,9 +13,7 @@ export const useAuth = () => {
     onSuccess: response => {
       setToken(response.access_token)
       navigate('/admin')
-    },
-    onError: error => {
-      toast.error(error)
+      toast.success('Logged in successfully!')
     },
   })
 

@@ -4,36 +4,36 @@ import { toast } from 'react-toastify'
 
 import { API_KEY_MAP } from 'src/configs/service'
 import { useDebounceMethodWithPromise } from 'src/hooks/useDebounceMethod'
+import { TypeUseCrud } from 'src/interfaces'
 
-export const useCrud = QUERY_LIST_KEY => {
+export const useCrud: TypeUseCrud = MODEL_SLUG => {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[QUERY_LIST_KEY]
+  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[MODEL_SLUG]
 
   const { data: list, isFetching } = useQuery({
-    queryKey: [QUERY_LIST_KEY],
+    queryKey: [MODEL_SLUG],
     queryFn: async () => {
       if (!listApi) return null
-      const { data } = await listApi()
 
-      return data.data
+      const response = await listApi()
+
+      return response.data
     },
     placeholderData: [],
-    onError: error => toast.error(error),
   })
 
   const createMutation = useMutation(createApi, {
     onSuccess: response => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list => {
-        if (list) return [...list, response.data.data]
+      queryClient.setQueryData(MODEL_SLUG, list => {
+        if (list) {
+          return [...list, response]
+        }
 
-        return [response.data.data]
+        return [response]
       })
-      toast.success(t(QUERY_LIST_KEY + ' created successfully'))
-    },
-    onError: error => {
-      toast.error(error)
+      toast.success(t(MODEL_SLUG + ' created successfully'))
     },
   })
 
@@ -43,7 +43,7 @@ export const useCrud = QUERY_LIST_KEY => {
 
   const debounceUpdateMutation = useMutation(debouncedUpdateApi, {
     onMutate: updatingItem => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list =>
+      queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item =>
           item.id !== updatingItem.id
             ? item
@@ -64,35 +64,30 @@ export const useCrud = QUERY_LIST_KEY => {
       return oldItem
     },
     onSuccess: response => {
-      const updatedData = response?.data?.data
-      queryClient.setQueryData(QUERY_LIST_KEY, list =>
+      const updatedData = response
+      queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item => (item.id === updatedData.id ? updatedData : item)),
       )
-      toast.success(t(QUERY_LIST_KEY + ' updated successfully'))
+      toast.success(t(MODEL_SLUG + ' updated successfully'))
       // ['todos', newTodo.id]
       queryClient.setQueryData('oldUpdatedItem', () => null)
     },
-    onError: (error, updatingData, oldItem) => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list =>
+    onError: (_, __, oldItem) => {
+      queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item => (item.id === oldItem.id ? oldItem : item)),
       )
       // ['todos', newTodo.id]
       queryClient.setQueryData('oldUpdatedItem', () => null)
-
-      toast.error(error)
     },
   })
 
   const deleteMutation = useMutation(deleteApi, {
     onSuccess: (_, id) => {
-      queryClient.setQueryData(QUERY_LIST_KEY, list => {
+      queryClient.setQueryData(MODEL_SLUG, list => {
         if (list) return list.filter(item => item.id !== id)
 
         return []
       })
-    },
-    onError: error => {
-      toast.error(error)
     },
   })
 

@@ -8,7 +8,7 @@ const AdminLayout = () => {
     <PageLayout>
       AdminLayout
       <br />
-      <Link to='/admin/blogs'>Blogs </Link>
+      <Link to='/admin/foods'>Foods </Link>
       <Outlet />
     </PageLayout>
   )

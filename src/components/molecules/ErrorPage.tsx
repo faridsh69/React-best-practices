@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useRouteError } from 'react-router-dom'
+import { errorHandler } from 'src/helpers/errorHandler'
 
 export const ErrorPage = () => {
   const error = useRouteError()
-  console.error('***ErrorPage***', error)
-  // @TODO add sentry to project or collect errors
+
+  errorHandler(error)
 
   return (
     <div>

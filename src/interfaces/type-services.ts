@@ -1,26 +1,34 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-type TypeApiGetParameters = { endpoint: string; params?: object; options?: object }
-export type ApiGetType = (parameters: TypeApiGetParameters) => Promise<AxiosResponse>
-export type ApiRemoveType = (parameters: TypeApiGetParameters) => Promise<AxiosResponse>
+export type TypeErrorHandlerInterceptor = (error: AxiosError) => Promise<AxiosError>
+export type TypeResponseInterceptor = (response: AxiosResponse) => AxiosResponse
+export type TypeRequestInterceptor = (
+  config: InternalAxiosRequestConfig,
+) => InternalAxiosRequestConfig
 
-type TypeApiPostParameters = { endpoint: string; data: object; options?: object }
-export type ApiPostType = (parameters: TypeApiPostParameters) => Promise<AxiosResponse>
-export type ApiPutType = (parameters: TypeApiPostParameters) => Promise<AxiosResponse>
+export type TypeAxiosMethod = (parameters: {
+  endpoint: string
+  data?: object
+  options?: object
+}) => Promise<AxiosResponse>
 
 export type CreateApiClientType = (
   baseURL: string,
   auth?: boolean,
 ) => {
-  get: ApiGetType
-  post: ApiPostType
-  put: ApiPutType
-  remove: ApiRemoveType
+  get: TypeAxiosMethod
+  post: TypeAxiosMethod
+  put: TypeAxiosMethod
+  remove: TypeAxiosMethod
 }
 
-export type TypeErrorHandlerInterceptor = (error: AxiosError) => Promise<AxiosError>
+export type TypeApiMethod = (params?: object) => Promise<AxiosResponse>
 
-export type TypeRequestInterceptor = (
-  config: InternalAxiosRequestConfig,
-) => InternalAxiosRequestConfig
-export type TypeResponseInterceptor = (response: AxiosResponse) => AxiosResponse
+export type TypeApiKeyMap = {
+  [key: string]: {
+    listApi?: TypeApiMethod
+    createApi?: TypeApiMethod
+    updateApi?: TypeApiMethod
+    deleteApi?: TypeApiMethod
+  }
+}

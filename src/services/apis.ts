@@ -1,27 +1,23 @@
 import { createApiClient } from 'src/helpers/service'
+import { TypeApiMethod } from 'src/interfaces'
 
-const { VITE_TEST_API_BASE_URL, VITE_AUTH_API_BASE_URL } = import.meta.env
+const { VITE_API_BASE_URL } = import.meta.env
 
-if (!VITE_AUTH_API_BASE_URL || !VITE_TEST_API_BASE_URL) {
+if (!VITE_API_BASE_URL) {
   throw new Error('Please copy .env.example to .env.local')
 }
 
-const VITE_TEST_API = createApiClient(VITE_TEST_API_BASE_URL)
-const VITE_AUTH_API = createApiClient(VITE_AUTH_API_BASE_URL)
+const VITE_AUTH_API_CLIENT = createApiClient(VITE_API_BASE_URL)
+const VITE_FOOD_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/food`, true)
 
-export const getFoods = params =>
-  VITE_TEST_API.get({
-    endpoint: 'foods',
-    params,
+export const getFoods: TypeApiMethod = data =>
+  VITE_FOOD_API_CLIENT.get({
+    endpoint: '',
+    data,
   })
 
-export const getFood = foodId =>
-  VITE_TEST_API.get({
-    endpoint: `orders/${foodId}`,
-  })
-
-export const postLogin = data =>
-  VITE_AUTH_API.post({
+export const postLogin: TypeApiMethod = data =>
+  VITE_AUTH_API_CLIENT.post({
     endpoint: 'oauth/token',
     data,
   })

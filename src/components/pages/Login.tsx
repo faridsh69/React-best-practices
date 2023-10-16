@@ -22,7 +22,6 @@ export const Login = () => {
 
   const handleLogin = event => {
     event.preventDefault()
-    console.log('1 handleLogin', handleLogin)
     const username = 'farid.sh69@gmail.com'
     const password = '123456'
 
