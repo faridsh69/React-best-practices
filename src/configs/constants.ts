@@ -16,6 +16,19 @@ export const breakLine = '\r\n'
 export const UNAUTHORIZED_RESPONSE_STATUS_CODE = 401
 export const CANCELED_API_BY_USER = 'canceled'
 
+export const LOCAL_STORAGE_APP_KEY = 'APPLICATION'
+export const LOCAL_STORAGE_ACCESS_TOKEN_KEY = 'access_token'
+export const LS_SETTINGS_CURRENT_SECTION = 'settingsCurrentSection'
+
+export const VALIDATION_REGEXPS = {
+  phones: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]{6,16}$/g,
+  email: /^(\S+@\S+\.\S+)$/gm,
+  first_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
+  name_with_space: /^([\u00C0-\u017Fa-zA-Z.\-\s']+)$/g,
+  last_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
+  hasNoSpace: /^\S+$/,
+}
+
 export const META_TAGS = {
   title: 'React Best Practices',
   description: 'React Best Practices boilerplate',
@@ -36,14 +49,8 @@ export const THEMES = {
   [DARK_THEME_NAME]: DARK_THEME,
 }
 
-export const LOCAL_STORAGE_FILTERS_HISTORY = 'filters_history'
-export const LS_SETTINGS_CURRENT_SECTION = 'settingsCurrentSection'
-
-export const VALIDATION_REGEXPS = {
-  phones: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]{6,16}$/g,
-  email: /^(\S+@\S+\.\S+)$/gm,
-  first_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
-  name_with_space: /^([\u00C0-\u017Fa-zA-Z.\-\s']+)$/g,
-  last_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
-  hasNoSpace: /^\S+$/,
+export const OAUTH_API_INFO = {
+  grant_type: 'password',
+  client_id: '7',
+  client_secret: 'l1QTnntnWMIhaK7HnvL8WGFNeNoqEIGC8mKC4fO3',
 }

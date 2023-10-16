@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { LOCAL_STORAGE_APP_KEY } from 'src/configs/constants'
+
 export const findInString = (string, value) => {
   if (!string || !value) return true
 
@@ -80,25 +82,23 @@ export const isObjectEmpty = object => !object || !isObject(object) || !Object.k
 export const isThereCommonItemsInArrays = (array1, array2) =>
   array1.some(item => array2.includes(item))
 
-export const getLastStateOfFilters = (filterName, defaultValue) => {
-  try {
-    const jsonFilters = localStorage.getItem(LOCAL_STORAGE_FILTERS_HISTORY)
-    const filters = JSON.parse(jsonFilters)
-    if (isObjectEmpty(filters) || isUndefined(filters[filterName])) {
-      return defaultValue
-    }
+export const getLocalstorage = (key, defaultValue = null) => {
+  const json = localStorage.getItem(LOCAL_STORAGE_APP_KEY)
+  const data = JSON.parse(json)
 
-    return filters[filterName]
-  } catch (error) {
+  if (isObjectEmpty(data) || isUndefined(data[key])) {
     return defaultValue
   }
+
+  return data[key]
 }
 
-export const saveLastStateOfFilters = (filterName, filterValue) => {
-  const jsonFilters = localStorage.getItem(LOCAL_STORAGE_FILTERS_HISTORY)
-  const filters = JSON.parse(jsonFilters) || {}
-  const newFilters = { ...filters, [filterName]: filterValue }
-  localStorage.setItem(LOCAL_STORAGE_FILTERS_HISTORY, JSON.stringify(newFilters))
+export const setLocalsotrage = (key, value) => {
+  const json = localStorage.getItem(LOCAL_STORAGE_APP_KEY)
+  const data = JSON.parse(json) || {}
+  const newData = { ...data, [key]: value }
+
+  localStorage.setItem(LOCAL_STORAGE_APP_KEY, JSON.stringify(newData))
 }
 
 export const shortenString = (string, maxLength, ending = '...') =>

@@ -1,19 +1,22 @@
 import axios, { AxiosInstance } from 'axios'
 import {
-  ErrorHandlerInterceptorType,
-  TokenInterceptorType,
   CreateApiClientType,
   ApiGetType,
   ApiPostType,
   ApiPutType,
   ApiRemoveType,
+  TypeErrorHandlerInterceptor,
+  TypeRequestInterceptor,
+  TypeResponseInterceptor,
 } from 'src/interfaces'
 
 export const createApiClient: CreateApiClientType = (baseURL, auth = false) => {
   const axiosInstance: AxiosInstance = axios.create({ baseURL })
-  axiosInstance.interceptors.response.use(null, errorHandlerInterceptor)
+  axiosInstance.interceptors.request.use(commonRequestInterceptor)
+  axiosInstance.interceptors.response.use(responseInterceptor, errorHandlerInterceptor)
+
   if (auth) {
-    axiosInstance.interceptors.request.use(tokenInterceptor)
+    axiosInstance.interceptors.request.use(authInterceptor)
   }
 
   const get: ApiGetType = ({ endpoint, params, options }) =>
@@ -37,16 +40,27 @@ export const createApiClient: CreateApiClientType = (baseURL, auth = false) => {
   return { get, post, put, remove }
 }
 
-const tokenInterceptor: TokenInterceptorType = config => {
-  const user = localStorage.getItem('user')
-  const { access_token: accessToken } = JSON.parse(user || '{}')
-  config.headers!.Authorization = `Bearer ${accessToken}`
+const commonRequestInterceptor: TypeRequestInterceptor = config => {
+  config.headers['Access-Control-Allow-Origin'] = '*'
 
   return config
 }
 
-const errorHandlerInterceptor: ErrorHandlerInterceptorType = error => {
-  if (error?.response?.data) {
+const authInterceptor: TypeRequestInterceptor = config => {
+  const user = localStorage.getItem('user')
+  const { access_token: accessToken } = JSON.parse(user || '{}')
+  config.headers!.Authorization = `Bearer ${accessToken}`
+  config.headers['Access-Control-Allow-Origin'] = '*'
+
+  return config
+}
+
+const responseInterceptor: TypeResponseInterceptor = response => {
+  return response?.data
+}
+
+const errorHandlerInterceptor: TypeErrorHandlerInterceptor = error => {
+  if (error.response?.data) {
     // if error is server error return server response
     return Promise.reject(error.response.data)
   }

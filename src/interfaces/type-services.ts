@@ -1,12 +1,12 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-type ApiGetParametersType = { endpoint: string; params?: object; options?: object }
-export type ApiGetType = (parameters: ApiGetParametersType) => Promise<AxiosResponse>
-export type ApiRemoveType = (parameters: ApiGetParametersType) => Promise<AxiosResponse>
+type TypeApiGetParameters = { endpoint: string; params?: object; options?: object }
+export type ApiGetType = (parameters: TypeApiGetParameters) => Promise<AxiosResponse>
+export type ApiRemoveType = (parameters: TypeApiGetParameters) => Promise<AxiosResponse>
 
-type ApiPostParametersType = { endpoint: string; data: object; options?: object }
-export type ApiPostType = (parameters: ApiPostParametersType) => Promise<AxiosResponse>
-export type ApiPutType = (parameters: ApiPostParametersType) => Promise<AxiosResponse>
+type TypeApiPostParameters = { endpoint: string; data: object; options?: object }
+export type ApiPostType = (parameters: TypeApiPostParameters) => Promise<AxiosResponse>
+export type ApiPutType = (parameters: TypeApiPostParameters) => Promise<AxiosResponse>
 
 export type CreateApiClientType = (
   baseURL: string,
@@ -18,8 +18,9 @@ export type CreateApiClientType = (
   remove: ApiRemoveType
 }
 
-export type TokenInterceptorType = (
+export type TypeErrorHandlerInterceptor = (error: AxiosError) => Promise<AxiosError>
+
+export type TypeRequestInterceptor = (
   config: InternalAxiosRequestConfig,
 ) => InternalAxiosRequestConfig
-
-export type ErrorHandlerInterceptorType = (error: AxiosError) => Promise<AxiosError>
+export type TypeResponseInterceptor = (response: AxiosResponse) => AxiosResponse

@@ -5,12 +5,14 @@ import { toast } from 'react-toastify'
 
 import { API_KEY_MAP } from 'src/configs/service'
 import { useDebounceMethodWithPromise } from 'src/hooks/useDebounceMethod'
+import { setLocalsotrage } from 'src/helpers/common'
+import { LOCAL_STORAGE_ACCESS_TOKEN_KEY } from 'src/configs/constants'
 
 export const useCrud = QUERY_LIST_KEY => {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[QUERY_LIST_KEY]
+  const { listApi, createApi, updateApi, deleteApi, loginApi } = API_KEY_MAP[QUERY_LIST_KEY]
 
   const { data: list, isFetching } = useQuery({
     queryKey: [QUERY_LIST_KEY],
@@ -93,11 +95,20 @@ export const useCrud = QUERY_LIST_KEY => {
     onError: error => toast.error(error),
   })
 
+  const loginMutation = useMutation(loginApi, {
+    onSuccess: response => {
+      setLocalsotrage(LOCAL_STORAGE_ACCESS_TOKEN_KEY, response.access_token)
+      // navigate
+    },
+    onError: error => toast.error(error),
+  })
+
   return {
     list,
     isFetching,
     createMutation,
     debounceUpdateMutation,
     deleteMutation,
+    loginMutation,
   }
 }
