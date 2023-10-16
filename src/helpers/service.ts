@@ -41,7 +41,7 @@ export const createApiClient: CreateApiClientType = (baseURL, auth = false) => {
 }
 
 const commonRequestInterceptor: TypeRequestInterceptor = config => {
-  config.headers['Access-Control-Allow-Origin'] = '*'
+  // config.headers['Access-Control-Allow-Origin'] = '*'
 
   return config
 }

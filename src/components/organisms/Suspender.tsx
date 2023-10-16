@@ -1,14 +1,13 @@
 import { Suspense, lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { LOCAL_STORAGE_ACCESS_TOKEN_KEY } from 'src/configs/constants'
-import { getLocalstorage } from 'src/helpers/common'
 import { Loading } from 'src/components/molecules/Loading'
+import { getToken } from 'src/helpers/auth'
 import { TypeSuspenderComponent } from 'src/interfaces'
 
 export const Suspender: TypeSuspenderComponent = props => {
   const { pageName = 'AdminLayout', auth = false, guest = false } = props
-  const accessToken = getLocalstorage(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
+  const accessToken = getToken()
 
   if (auth && !accessToken) {
     return <Navigate to='/login' replace={true} />

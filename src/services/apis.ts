@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createApiClient } from 'src/helpers/service'
 
 const { VITE_TEST_API_BASE_URL, VITE_AUTH_API_BASE_URL } = import.meta.env

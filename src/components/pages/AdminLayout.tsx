@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom'
+
 import { Outlet } from 'react-router-dom'
+import { PageLayout } from '../templates/PageLayout'
 
 const AdminLayout = () => {
   return (
-    <div>
+    <PageLayout>
       AdminLayout
       <br />
       <Link to='/admin/blogs'>Blogs </Link>
       <Outlet />
-    </div>
+    </PageLayout>
   )
 }
 

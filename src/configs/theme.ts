@@ -7,6 +7,15 @@ export const LIGHT_THEME = createTheme({
       main: orange[500],
     },
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: '0px',
+        },
+      },
+    },
+  },
 })
 
 export const DARK_THEME = createTheme({

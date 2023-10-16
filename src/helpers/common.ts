@@ -101,6 +101,14 @@ export const setLocalsotrage = (key, value) => {
   localStorage.setItem(LOCAL_STORAGE_APP_KEY, JSON.stringify(newData))
 }
 
+export const removeLocalsotrage = key => {
+  const json = localStorage.getItem(LOCAL_STORAGE_APP_KEY)
+  const data = JSON.parse(json) || {}
+  delete data[key]
+
+  localStorage.setItem(LOCAL_STORAGE_APP_KEY, JSON.stringify(data))
+}
+
 export const shortenString = (string, maxLength, ending = '...') =>
   string.length > maxLength ? `${string.slice(0, maxLength - ending.length)}${ending}` : string
 

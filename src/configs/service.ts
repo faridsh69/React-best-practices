@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query'
 
-import { getFood, getFoods, postLogin } from 'src/services/apis'
+import { getFood, getFoods } from 'src/services/apis'
 
 export const REACT_QUERY_CLIENT = new QueryClient({
   defaultOptions: {
@@ -17,8 +17,5 @@ export const API_KEY_MAP = {
   foods: {
     listApi: getFoods,
     showApi: getFood,
-  },
-  auth: {
-    loginApi: postLogin,
   },
 }

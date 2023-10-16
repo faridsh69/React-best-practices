@@ -2,6 +2,7 @@ import { useAtom } from 'jotai'
 import { QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@emotion/react'
+import CssBaseline from '@mui/material/CssBaseline'
 
 import { Router } from 'src/configs/router'
 import { themeAtom } from 'src/contexts/themeAtom'
@@ -20,9 +21,10 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={THEMES[theme]}>
+      <CssBaseline />
+      <MetaTags />
+      <ToastContainer pauseOnFocusLoss={false} />
       <QueryClientProvider client={REACT_QUERY_CLIENT}>
-        <MetaTags />
-        <ToastContainer pauseOnFocusLoss={false} />
         <RouterProvider router={Router} />
       </QueryClientProvider>
     </ThemeProvider>
