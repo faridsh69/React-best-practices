@@ -16,6 +16,11 @@ export const getFoods: TypeApiMethod = data =>
     data,
   })
 
+export const deleteFood: TypeApiMethod = data =>
+  VITE_FOOD_API_CLIENT.remove({
+    endpoint: `id/${data}`,
+  })
+
 export const postLogin: TypeApiMethod = data =>
   VITE_AUTH_API_CLIENT.post({
     endpoint: 'oauth/token',

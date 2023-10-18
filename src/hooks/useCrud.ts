@@ -83,9 +83,9 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
 
   const deleteMutation = useMutation(deleteApi, {
     onSuccess: (_, id) => {
+      toast.success(t(MODEL_SLUG + ' deleted successfully'))
       queryClient.setQueryData(MODEL_SLUG, list => {
         if (list) return list.filter(item => item.id !== id)
-
         return []
       })
     },

@@ -1,23 +1,59 @@
-import { Link } from 'react-router-dom'
 import { useCrud } from 'src/hooks/useCrud'
+import { TableMui } from '../organisms/TableMui'
 
 const AdminModelList = () => {
-  const { list: foods } = useCrud('foods')
+  const { list: foods, deleteMutation } = useCrud('food')
+  const handleDelete = id => {
+    deleteMutation.mutate(id)
+  }
 
-  return (
-    <div>
-      {foods.map(food => {
-        return (
-          <div key={food.id}>
-            {food.id} - {food.title}
-          </div>
-        )
-      })}
-      <br />
-      <Link to='/admin/foods/1'>Show Blog 1 </Link>
-      <Link to='/admin/foods/1/edit'>Edit Blog 1 </Link>
-    </div>
-  )
+  const headCells = [
+    {
+      id: 'id',
+      numeric: true,
+      disablePadding: true,
+      label: 'ID',
+    },
+    {
+      id: 'url',
+      numeric: false,
+      disablePadding: false,
+      label: 'Url',
+    },
+    {
+      id: 'title',
+      numeric: false,
+      disablePadding: false,
+      label: 'Title',
+    },
+    {
+      id: 'price',
+      numeric: true,
+      disablePadding: false,
+      label: 'Price',
+    },
+    {
+      id: 'description',
+      numeric: false,
+      disablePadding: false,
+      label: 'Food Content',
+    },
+    {
+      id: 'activated',
+      numeric: false,
+      disablePadding: false,
+      label: 'Available',
+    },
+    {
+      id: 'actions',
+      numeric: false,
+      disablePadding: true,
+      label: 'Actions',
+    },
+    // category_id, created_at, updated_at
+  ]
+
+  return <TableMui list={foods} headCells={headCells} handleDelete={handleDelete} />
 }
 
 export default AdminModelList
