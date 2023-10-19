@@ -53,5 +53,9 @@ const authInterceptor: TypeRequestInterceptor = config => {
 
 const responseInterceptor: TypeResponseInterceptor = response => response?.data || response
 
-const errorHandlerInterceptor: TypeErrorHandlerInterceptor = error =>
-  Promise.reject(error.response?.data?.message || error.response?.data || error.message || error)
+const errorHandlerInterceptor: TypeErrorHandlerInterceptor = error => {
+  const message =
+    error.response?.data?.message || error.response?.data || error.data || error.message || error
+
+  return Promise.reject(message)
+}

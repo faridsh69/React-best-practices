@@ -17,6 +17,10 @@ export const Login = () => {
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(LOGIN_SCHEMA),
     mode: 'onTouched',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
   const { loginMutation } = useAuth()
@@ -51,20 +55,10 @@ export const Login = () => {
               control={control}
               name='email'
               label='Email Address'
-              type='email'
-              margin='normal'
-              fullWidth
               autoComplete='email'
               autoFocus
             />
-            <InputController
-              control={control}
-              name='password'
-              type='password'
-              margin='normal'
-              fullWidth
-              autoComplete='current-password'
-            />
+            <InputController control={control} name='password' autoComplete='current-password' />
             <CheckBoxController control={control} name='remember' label={t('Remember me')} />
 
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>

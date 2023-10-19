@@ -5,7 +5,10 @@ import { TextField } from '@mui/material'
 import { capitalizeFirstLetter } from 'src/helpers/common'
 
 export const InputController = props => {
-  const { control, name, label, type = 'text', multiline = false, rows, ...rest } = props
+  const { control, name, label, type, ...rest } = props
+
+  const inputType =
+    type || (name === 'email' ? 'email' : '') || (name === 'password' ? 'password' : '') || 'text'
 
   const handleOnChange = useCallback(
     (e, onChange) => {
@@ -14,20 +17,22 @@ export const InputController = props => {
     },
     [type],
   )
+
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+      render={({ field: { value, onBlur, onChange }, fieldState: { error } }) => (
         <TextField
           label={label || capitalizeFirstLetter(name)}
-          type={type}
-          multiline={multiline}
-          rows={rows}
+          type={inputType}
+          value={value || ''}
           onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleOnChange(e, onBlur)}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
           error={!!error}
           helperText={capitalizeFirstLetter(error?.message)}
+          fullWidth
+          margin='normal'
           {...rest}
         />
       )}

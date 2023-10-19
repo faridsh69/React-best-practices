@@ -1,12 +1,21 @@
+import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { useCrud } from 'src/hooks/useCrud'
-import { TableMui } from '../organisms/TableMui'
-import { useTranslation } from 'react-i18next'
+import { TableMui } from 'src/components/organisms/TableMui'
 
 const AdminModelList = () => {
+  const navigate = useNavigate()
   const { list: foods, deleteMutation } = useCrud('food')
-  const handleDelete = id => {
-    deleteMutation.mutate(id)
-  }
+
+  const handleDelete = useCallback(
+    id => {
+      deleteMutation.mutate(id)
+    },
+    [deleteMutation],
+  )
+
+  const handleEdit = id => navigate(`/admin/food/${id}/edit`)
 
   const headCells = [
     {
@@ -54,12 +63,15 @@ const AdminModelList = () => {
     // category_id, created_at, updated_at
   ]
 
-  const { t } = useTranslation()
-
   return (
     <div>
-      {t('hello wolrd')}
-      <TableMui list={foods} headCells={headCells} handleDelete={handleDelete} />
+      {/* <Button component={Link} to={'/admin/food/create'}> */}
+      <TableMui
+        list={foods}
+        headCells={headCells}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </div>
   )
 }

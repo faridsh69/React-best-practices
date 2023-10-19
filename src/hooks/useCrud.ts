@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { API_KEY_MAP } from 'src/configs/service'
-import { useDebounceMethodWithPromise } from 'src/hooks/useDebounceMethod'
 import { TypeUseCrud } from 'src/interfaces'
+import { errorHandler } from 'src/helpers/errorHandler'
 
 export const useCrud: TypeUseCrud = MODEL_SLUG => {
   const queryClient = useQueryClient()
@@ -39,9 +39,8 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
 
   useQuery({ queryKey: ['oldUpdatedItem'], queryFn: () => null })
 
-  const debouncedUpdateApi = useDebounceMethodWithPromise(updateApi)
-
-  const debounceUpdateMutation = useMutation(debouncedUpdateApi, {
+  // const debouncedUpdateApi = useDebounceMethodWithPromise(updateApi)
+  const updateMutation = useMutation(updateApi, {
     onMutate: updatingItem => {
       queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item =>
@@ -72,12 +71,13 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
       // ['todos', newTodo.id]
       queryClient.setQueryData('oldUpdatedItem', () => null)
     },
-    onError: (_, __, oldItem) => {
+    onError: (error, __, oldItem) => {
       queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item => (item.id === oldItem.id ? oldItem : item)),
       )
       // ['todos', newTodo.id]
       queryClient.setQueryData('oldUpdatedItem', () => null)
+      errorHandler(error)
     },
   })
 
@@ -95,7 +95,7 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
     list,
     isFetching,
     createMutation,
-    debounceUpdateMutation,
+    updateMutation,
     deleteMutation,
   }
 }

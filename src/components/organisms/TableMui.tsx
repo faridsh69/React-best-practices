@@ -17,7 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 
 export const TableMui = props => {
-  const { list, headCells, handleDelete } = props
+  const { list, headCells, handleDelete, handleEdit } = props
   const [order, setOrder] = useState<OrderType>('asc')
   const [orderBy, setOrderBy] = useState('calories')
   const [page, setPage] = useState(0)
@@ -119,7 +119,6 @@ export const TableMui = props => {
                     </TableCell>
                     <TableCell align='right'>{row.id}</TableCell>
                     <TableCell align='left'>{row.url}</TableCell>
-
                     <TableCell component='th' id={labelId} scope='row' padding='none'>
                       {row.title}
                     </TableCell>
@@ -127,7 +126,7 @@ export const TableMui = props => {
                     <TableCell align='left'>{row.description}</TableCell>
                     <TableCell align='left'>{row.activated ? 'Yes' : 'No'}</TableCell>
                     <TableCell align='right'>
-                      <IconButton>
+                      <IconButton onClick={() => handleEdit(row.id)}>
                         <EditIcon />
                       </IconButton>
                       <IconButton onClick={() => handleDelete(row.id)}>
