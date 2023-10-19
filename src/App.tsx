@@ -1,26 +1,36 @@
+import { useMemo } from 'react'
 import { useAtom } from 'jotai'
 import { QueryClientProvider } from 'react-query'
+import { useTranslation } from 'react-i18next'
+import { ToastContainer } from 'react-toastify'
 import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@emotion/react'
+import { createTheme } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import { Router } from 'src/configs/router'
+import { useInternetConnection } from 'src/hooks/useInternetConnection'
 import { themeAtom } from 'src/contexts/themeAtom'
 import { MetaTags } from 'src/components/templates/MetaTags'
-import { THEMES } from './configs/constants'
+import { LOCALES, THEMES } from 'src/configs/theme'
 import { REACT_QUERY_CLIENT } from 'src/configs/service'
-import { ToastContainer } from 'react-toastify'
-import { useInternetConnection } from './hooks/useInternetConnection'
+import { Router } from 'src/configs/router'
 import 'src/configs/locale'
 import 'src/configs/styles'
 
 export const App = () => {
   const [theme] = useAtom(themeAtom)
+  const { i18n } = useTranslation()
 
   useInternetConnection()
 
+  const themeWithLocale = useMemo(
+    // @ts-ignore
+    () => createTheme(THEMES[theme], LOCALES[i18n.language]),
+    [i18n.language, theme],
+  )
+
   return (
-    <ThemeProvider theme={THEMES[theme]}>
+    <ThemeProvider theme={themeWithLocale}>
       <CssBaseline />
       <MetaTags />
       <ToastContainer pauseOnFocusLoss={false} />

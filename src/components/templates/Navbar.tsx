@@ -1,16 +1,19 @@
+import { useAtom } from 'jotai'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { AppBar, Badge, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import AccountCircle from '@mui/icons-material/AccountCircle'
 import MailIcon from '@mui/icons-material/Mail'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 import MoreIcon from '@mui/icons-material/MoreVert'
-import { useTranslation } from 'react-i18next'
-import { useAtom } from 'jotai'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+
 import { themeAtom } from 'src/contexts/themeAtom'
 import { useAuth } from 'src/hooks/useAuth'
 import { getToken } from 'src/helpers/auth'
-import { DARK_THEME_NAME, LIGHT_THEME_NAME } from 'src/configs/constants'
-import { Link } from 'react-router-dom'
+import { DARK_THEME_NAME, DE_LANGUAGE, EN_LANGUAGE, LIGHT_THEME_NAME } from 'src/configs/theme'
 
 export const Navbar = () => {
   const [theme, setTheme] = useAtom(themeAtom)
@@ -20,7 +23,7 @@ export const Navbar = () => {
   const accessToken = getToken()
 
   const changeLanguage = () => {
-    i18n.changeLanguage(i18n.language === 'en' ? 'de' : 'en')
+    i18n.changeLanguage(i18n.language === EN_LANGUAGE ? DE_LANGUAGE : EN_LANGUAGE)
   }
 
   const changeTheme = () => {
@@ -72,11 +75,9 @@ export const Navbar = () => {
           >
             <AccountCircle />
           </IconButton>
+
           <Button variant='contained' onClick={changeLanguage}>
             Change Language
-          </Button>
-          <Button variant='contained' onClick={changeTheme}>
-            Change Theme
           </Button>
           {accessToken && <Link to='/admin'>Admin</Link>}
 
@@ -87,6 +88,20 @@ export const Navbar = () => {
           )}
           {!accessToken && <Link to='/login'>Login</Link>}
         </Box>
+        <IconButton
+          sx={{ fontSize: '1rem' }}
+          onClick={changeTheme}
+          color='inherit'
+          disableTouchRipple
+          disableRipple
+        >
+          {theme === DARK_THEME_NAME ? (
+            <LightModeIcon sx={{ color: 'yellow' }} />
+          ) : (
+            <DarkModeIcon sx={{ color: 'black' }} />
+          )}
+        </IconButton>
+
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size='large'

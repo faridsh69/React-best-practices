@@ -125,7 +125,7 @@ export const TableMui = props => {
                     </TableCell>
                     <TableCell align='right'>{row.price}</TableCell>
                     <TableCell align='left'>{row.description}</TableCell>
-                    <TableCell align='right'>{row.activated ? 'Yes' : 'No'}</TableCell>
+                    <TableCell align='left'>{row.activated ? 'Yes' : 'No'}</TableCell>
                     <TableCell align='right'>
                       <IconButton>
                         <EditIcon />

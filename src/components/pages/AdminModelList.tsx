@@ -1,5 +1,6 @@
 import { useCrud } from 'src/hooks/useCrud'
 import { TableMui } from '../organisms/TableMui'
+import { useTranslation } from 'react-i18next'
 
 const AdminModelList = () => {
   const { list: foods, deleteMutation } = useCrud('food')
@@ -53,7 +54,14 @@ const AdminModelList = () => {
     // category_id, created_at, updated_at
   ]
 
-  return <TableMui list={foods} headCells={headCells} handleDelete={handleDelete} />
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      {t('hello wolrd')}
+      <TableMui list={foods} headCells={headCells} handleDelete={handleDelete} />
+    </div>
+  )
 }
 
 export default AdminModelList

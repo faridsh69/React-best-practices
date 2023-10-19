@@ -1,10 +1,10 @@
 import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
 import I18nextBrowserLanguageDetector from 'i18next-browser-languagedetector'
 
-import { initReactI18next } from 'react-i18next'
-
-import de from 'src/locales/de.json'
-import en from 'src/locales/en.json'
+import deLocales from 'src/locales/de.json'
+import enLocales from 'src/locales/en.json'
+import { EN_LANGUAGE } from 'src/configs/theme'
 
 i18next
   .use(initReactI18next)
@@ -12,12 +12,12 @@ i18next
   .init({
     resources: {
       en: {
-        translation: en,
+        translation: enLocales,
       },
       de: {
-        translation: de,
+        translation: deLocales,
       },
     },
-    fallbackLng: 'en',
+    fallbackLng: EN_LANGUAGE,
     debug: false,
   })
