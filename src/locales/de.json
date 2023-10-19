@@ -1,3 +1,7 @@
 {
-  "hello wolrd": "Halo wolrd"
+  "hello wolrd": "Halo wolrd",
+  "Sign in": "Anmelden",
+  "Remember me": "Erinnere dich an mich",
+  "Forgot password?": "Passwort vergessen?",
+  "dont have an account": "Sie haben noch kein Konto? Melden Sie sich an"
 }

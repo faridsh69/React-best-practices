@@ -162,3 +162,8 @@ export function debounceMethod(funcx, debounceTime = 500) {
     }, debounceTime)
   }
 }
+
+export const renderCamelCase = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2')
+
+export const capitalizeFirstLetter = (string?: string): string =>
+  string ? string.charAt(0).toUpperCase() + string.slice(1) : ' '

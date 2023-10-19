@@ -11,7 +11,7 @@ export const LanguageSwitcher = () => {
   }
 
   return (
-    <FormControl>
+    <FormControl size='small'>
       <InputLabel id='demo-simple-select-label' htmlFor='open-select' />
       <Select
         label='label'

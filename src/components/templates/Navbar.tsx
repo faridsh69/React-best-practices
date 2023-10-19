@@ -19,6 +19,8 @@ import { getToken } from 'src/helpers/auth'
 import { useState } from 'react'
 import { ThemeSwitcher } from '../molecules/ThemeSwitcher'
 import { LanguageSwitcher } from '../molecules/LanguageSwitcher'
+import LogoutIcon from '@mui/icons-material/Logout'
+import BadgeIcon from '@mui/icons-material/Badge'
 
 export const Navbar = () => {
   const { handleLogout } = useAuth()
@@ -36,7 +38,7 @@ export const Navbar = () => {
   }
 
   return (
-    <AppBar position='static' sx={{ zIndex: '1111111111' }}>
+    <AppBar position='static' sx={{ zIndex: 1201 }}>
       <Toolbar>
         <IconButton
           size='large'
@@ -69,40 +71,38 @@ export const Navbar = () => {
           </Button>
         )}
         {accessToken && (
-          <IconButton
-            size='large'
-            edge='end'
-            aria-label='account of current user'
-            aria-haspopup='true'
-            onClick={handleProfileMenuOpen}
-            color='inherit'
-          >
+          <IconButton size='large' onClick={handleProfileMenuOpen} color='inherit'>
             <AccountCircle />
           </IconButton>
         )}
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <IconButton size='large' aria-label='show more' aria-haspopup='true' color='inherit'>
+          <IconButton size='large' color='inherit'>
             <MoreIcon />
           </IconButton>
         </Box>
       </Toolbar>
       <Menu
-        anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'right',
         }}
-        id='primary-search-account-menu'
-        keepMounted
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
         }}
+        anchorEl={anchorEl}
+        keepMounted
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
+        sx={{ zIndex: 1201 }}
       >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleMenuClose} sx={{ gap: 2 }}>
+          <BadgeIcon />
+          Profile
+        </MenuItem>
+        <MenuItem onClick={handleLogout} sx={{ gap: 2 }}>
+          <LogoutIcon /> Logout
+        </MenuItem>
       </Menu>
     </AppBar>
   )
