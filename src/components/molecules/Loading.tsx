@@ -1,3 +1,5 @@
+import LinearProgress from '@mui/material/LinearProgress'
+
 export const Loading = () => {
-  return <div>Loading...</div>
+  return <LinearProgress />
 }

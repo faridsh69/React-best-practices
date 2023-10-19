@@ -33,7 +33,7 @@ export const App = () => {
     <ThemeProvider theme={themeWithLocale}>
       <CssBaseline />
       <MetaTags />
-      <ToastContainer pauseOnFocusLoss={false} />
+      <ToastContainer pauseOnFocusLoss={false} position='bottom-right' />
       <QueryClientProvider client={REACT_QUERY_CLIENT}>
         <RouterProvider router={Router} />
       </QueryClientProvider>

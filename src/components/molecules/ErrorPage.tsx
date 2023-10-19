@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useRouteError } from 'react-router-dom'
 import { errorHandler } from 'src/helpers/errorHandler'
+import { Alert, AlertTitle } from '@mui/material'
+import ErrorImg from 'src/images/errors/500.png'
 
 export const ErrorPage = () => {
   const error = useRouteError()
@@ -8,11 +10,13 @@ export const ErrorPage = () => {
   errorHandler(error)
 
   return (
-    <div>
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
+    <Alert severity='error'>
+      <AlertTitle>Oops! Digital Menu</AlertTitle>
+      <strong>
+        <Link to='/'>Retry</Link>
+      </strong>
       <pre>{error.statusText || error.message}</pre>
-      <Link to=''>Go Home</Link>
-    </div>
+      <img src={ErrorImg} alt='error' />
+    </Alert>
   )
 }

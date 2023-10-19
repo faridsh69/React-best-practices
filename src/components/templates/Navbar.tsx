@@ -1,15 +1,11 @@
-import { useAtom } from 'jotai'
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import {
   AppBar,
   Box,
   IconButton,
+  Button,
   Toolbar,
   Typography,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   Menu,
   Badge,
@@ -18,35 +14,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import MoreIcon from '@mui/icons-material/MoreVert'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
-
-import { themeAtom } from 'src/contexts/themeAtom'
 import { useAuth } from 'src/hooks/useAuth'
 import { getToken } from 'src/helpers/auth'
-import {
-  DARK_THEME_NAME,
-  DE_LANGUAGE,
-  EN_LANGUAGE,
-  LIGHT_THEME_NAME,
-  FLAG_LOCALES,
-} from 'src/configs/theme'
 import { useState } from 'react'
+import { ThemeSwitcher } from '../molecules/ThemeSwitcher'
+import { LanguageSwitcher } from '../molecules/LanguageSwitcher'
 
 export const Navbar = () => {
-  const [theme, setTheme] = useAtom(themeAtom)
-  const { i18n } = useTranslation()
   const { handleLogout } = useAuth()
 
   const accessToken = getToken()
-
-  const changeLanguage = () => {
-    i18n.changeLanguage(i18n.language === EN_LANGUAGE ? DE_LANGUAGE : EN_LANGUAGE)
-  }
-
-  const changeTheme = () => {
-    setTheme(theme === DARK_THEME_NAME ? LIGHT_THEME_NAME : DARK_THEME_NAME)
-  }
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -76,7 +53,7 @@ export const Navbar = () => {
           component='div'
           sx={{ display: { xs: 'none', sm: 'block' } }}
         >
-          MUI
+          Digital Menu
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <IconButton size='large' aria-label='show 17 new notifications' color='inherit'>
@@ -84,40 +61,13 @@ export const Navbar = () => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <FormControl>
-          <InputLabel id='demo-simple-select-label' htmlFor='open-select' />
-          <Select
-            label='label'
-            labelId='demo-simple-select-label'
-            value={i18n.language}
-            name='language'
-            onChange={changeLanguage}
-            inputProps={{
-              id: 'open-select',
-            }}
-          >
-            {Object.keys(FLAG_LOCALES).map(locale => (
-              <MenuItem value={locale} key={locale}>
-                {/* @ts-ignore */}
-                <img src={FLAG_LOCALES[locale]} alt={locale} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <IconButton
-          sx={{ fontSize: '1rem' }}
-          onClick={changeTheme}
-          color='inherit'
-          disableTouchRipple
-          disableRipple
-        >
-          {theme === DARK_THEME_NAME ? (
-            <LightModeIcon sx={{ color: 'yellow' }} />
-          ) : (
-            <DarkModeIcon sx={{ color: 'black' }} />
-          )}
-        </IconButton>
-        {!accessToken && <Link to='/login'>Login</Link>}
+        <LanguageSwitcher />
+        <ThemeSwitcher />
+        {!accessToken && (
+          <Button color='inherit' component={Link} to='/login'>
+            Login
+          </Button>
+        )}
         {accessToken && (
           <IconButton
             size='large'
@@ -130,7 +80,6 @@ export const Navbar = () => {
             <AccountCircle />
           </IconButton>
         )}
-
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton size='large' aria-label='show more' aria-haspopup='true' color='inherit'>
             <MoreIcon />
