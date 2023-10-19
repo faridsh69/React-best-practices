@@ -11,7 +11,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { useInternetConnection } from 'src/hooks/useInternetConnection'
 import { themeAtom } from 'src/contexts/themeAtom'
 import { MetaTags } from 'src/components/templates/MetaTags'
-import { LOCALES, THEMES } from 'src/configs/theme'
+import { MUI_LOCALES, THEMES } from 'src/configs/theme'
 import { REACT_QUERY_CLIENT } from 'src/configs/service'
 import { Router } from 'src/configs/router'
 import 'src/configs/locale'
@@ -25,7 +25,7 @@ export const App = () => {
 
   const themeWithLocale = useMemo(
     // @ts-ignore
-    () => createTheme(THEMES[theme], LOCALES[i18n.language]),
+    () => createTheme(THEMES[theme], MUI_LOCALES[i18n.language]),
     [i18n.language, theme],
   )
 

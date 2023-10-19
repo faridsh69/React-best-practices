@@ -3,20 +3,16 @@ import {
   Box,
   Drawer,
   Toolbar,
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import FastfoodIcon from '@mui/icons-material/Fastfood'
-import RestaurantIcon from '@mui/icons-material/Restaurant'
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining'
 import { useNavigate } from 'react-router-dom'
 
 export const AdminDrawer = props => {
-  const { drawerWidth } = props
+  const { drawerWidth, sidebarItems } = props
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
@@ -30,24 +26,10 @@ export const AdminDrawer = props => {
   }
 
   const drawer = (
-    <div>
+    <>
       <Toolbar />
-      <Divider />
       <List>
-        {[
-          {
-            title: 'Foods',
-            icon: <FastfoodIcon />,
-          },
-          {
-            title: 'Categories',
-            icon: <RestaurantIcon />,
-          },
-          {
-            title: 'Orders',
-            icon: <DinnerDiningIcon />,
-          },
-        ].map(item => (
+        {sidebarItems.map(item => (
           <ListItem key={item.title} disablePadding>
             <ListItemButton onClick={() => handleNavigate(item.title)}>
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -56,8 +38,7 @@ export const AdminDrawer = props => {
           </ListItem>
         ))}
       </List>
-      <Divider />
-    </div>
+    </>
   )
 
   return (
