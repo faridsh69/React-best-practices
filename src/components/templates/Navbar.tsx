@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   AppBar,
   Box,
@@ -23,6 +23,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import BadgeIcon from '@mui/icons-material/Badge'
 
 export const Navbar = () => {
+  const navigate = useNavigate()
   const { handleLogout } = useAuth()
 
   const accessToken = getToken()
@@ -35,6 +36,10 @@ export const Navbar = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleNavigateAdmin = () => {
+    navigate('/admin')
   }
 
   return (
@@ -96,9 +101,9 @@ export const Navbar = () => {
         onClose={handleMenuClose}
         sx={{ zIndex: 1201 }}
       >
-        <MenuItem onClick={handleMenuClose} sx={{ gap: 2 }}>
+        <MenuItem onClick={handleNavigateAdmin} sx={{ gap: 2 }}>
           <BadgeIcon />
-          Profile
+          Admin
         </MenuItem>
         <MenuItem onClick={handleLogout} sx={{ gap: 2 }}>
           <LogoutIcon /> Logout

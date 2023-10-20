@@ -1,55 +1,85 @@
-import { useForm } from 'react-hook-form'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button } from '@mui/material'
+import { useParams } from 'react-router-dom'
 
 import { FOOD_SCHEMA } from 'src/configs/schemas'
-import { InputController } from '../organisms/controllers/InputController'
-import { CheckBoxController } from '../organisms/controllers/CheckboxController'
-import { useParams } from 'react-router-dom'
 import { useCrud } from 'src/hooks/useCrud'
+import { InputController } from 'src/components/organisms/controllers/InputController'
+import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
+import { FormMui } from 'src/components/organisms/FormMui'
+import { Loading } from 'src/components/molecules/Loading'
 
 const AdminModelForm = () => {
   const { t } = useTranslation()
 
   const { model, id } = useParams()
-  const { list, updateMutation } = useCrud(model as string)
+  const { list, createMutation, updateMutation } = useCrud(model)
 
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(FOOD_SCHEMA),
-    defaultValues: list.find(item => item.id == id),
-    mode: 'onTouched',
-  })
+  const modelObject = useMemo(() => list.find(item => item.id == id), [list, id])
 
-  const onSubmitFoodForm = data => {
+  const onSubmit = data => {
     delete data.avatar
-    updateMutation.mutate(data)
+    if (id) {
+      updateMutation.mutate(data)
+    } else {
+      createMutation.mutate(data)
+    }
   }
+
+  if (id && !modelObject) return <Loading />
 
   return (
     <div>
-      <Box component='form' onSubmit={handleSubmit(onSubmitFoodForm)} sx={{ mt: 1 }}>
-        <InputController control={control} name='title' />
-        <InputController control={control} name='url' label='URL' />
-        <InputController control={control} name='price' type='number' />
-        <InputController control={control} name='discount_price' type='number' />
-        <InputController control={control} name='description' multiline rows={3} />
-        <CheckBoxController control={control} name='activated' label={t('Available')} />
-        <InputController control={control} name='calorie' type='number' />
+      <FormMui
+        schema={FOOD_SCHEMA}
+        onSubmit={onSubmit}
+        submitText={id ? t('Update') : t('Create')}
+        defaultValues={modelObject}
+        inputs={[
+          {
+            component: InputController,
+            name: 'title',
+          },
+          {
+            component: InputController,
+            name: 'url',
+            label: 'URL',
+          },
+          {
+            component: InputController,
+            name: 'price',
+            type: 'number',
+          },
+          {
+            component: InputController,
+            name: 'discount_price',
+            type: 'number',
+          },
+          {
+            component: InputController,
+            name: 'description',
+            multiline: true,
+            rows: 3,
+          },
+          {
+            component: CheckBoxController,
+            name: 'activated',
+            label: t('Available'),
+          },
+          {
+            component: InputController,
+            name: 'calorie',
+            type: 'number',
+          },
+        ]}
+      />
 
-        {/* content ckeditor */}
-        {/* category_id dropdown */}
-        {/* tags, relateds multi-dropdown */}
-
-        {/* image */}
-        {/* video */}
-
-        {/* order ?! */}
-
-        <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-          {t('Save')}
-        </Button>
-      </Box>
+      {/* content ckeditor */}
+      {/* category_id dropdown */}
+      {/* tags, relateds multi-dropdown */}
+      {/* image */}
+      {/* video */}
+      {/* order ?! */}
     </div>
   )
 }

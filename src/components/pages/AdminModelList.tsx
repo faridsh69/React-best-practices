@@ -1,8 +1,10 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Box, Button } from '@mui/material'
 
 import { useCrud } from 'src/hooks/useCrud'
 import { TableMui } from 'src/components/organisms/TableMui'
+import { Link } from 'react-router-dom'
 
 const AdminModelList = () => {
   const navigate = useNavigate()
@@ -25,12 +27,6 @@ const AdminModelList = () => {
       label: 'ID',
     },
     {
-      id: 'url',
-      numeric: false,
-      disablePadding: false,
-      label: 'Url',
-    },
-    {
       id: 'title',
       numeric: false,
       disablePadding: false,
@@ -48,11 +44,17 @@ const AdminModelList = () => {
       disablePadding: false,
       label: 'Food Content',
     },
+    // {
+    //   id: 'activated',
+    //   numeric: false,
+    //   disablePadding: false,
+    //   label: 'Available',
+    // },
     {
-      id: 'activated',
+      id: 'url',
       numeric: false,
       disablePadding: false,
-      label: 'Available',
+      label: 'Url',
     },
     {
       id: 'actions',
@@ -63,16 +65,40 @@ const AdminModelList = () => {
     // category_id, created_at, updated_at
   ]
 
+  const bodyCells = [
+    {
+      name: 'id',
+    },
+    {
+      name: 'title',
+    },
+    {
+      name: 'price',
+    },
+    {
+      name: 'description',
+    },
+    // {
+    //   name: 'activated',
+    // },
+    {
+      name: 'url',
+    },
+  ]
+
   return (
-    <div>
-      {/* <Button component={Link} to={'/admin/food/create'}> */}
+    <Box>
+      <Button component={Link} to={'/admin/food/create'}>
+        Create New Record
+      </Button>
       <TableMui
         list={foods}
         headCells={headCells}
+        bodyCells={bodyCells}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
       />
-    </div>
+    </Box>
   )
 }
 

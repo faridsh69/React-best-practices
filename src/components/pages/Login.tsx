@@ -1,7 +1,5 @@
-import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Container, Avatar, Box, Button, Grid, Link, Typography } from '@mui/material'
+import { Container, Avatar, Box, Grid, Link, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 
 import { OAUTH_API_INFO } from 'src/configs/constants'
@@ -10,22 +8,14 @@ import { useAuth } from 'src/hooks/useAuth'
 import { PageLayout } from 'src/components/templates/PageLayout'
 import { InputController } from 'src/components/organisms/controllers/InputController'
 import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
+import { FormMui } from 'src/components/organisms/FormMui'
 
 export const Login = () => {
   const { t } = useTranslation()
 
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(LOGIN_SCHEMA),
-    mode: 'onTouched',
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
-
   const { loginMutation } = useAuth()
 
-  const onSubmitLoginForm = data => {
+  const onSubmit = data => {
     loginMutation.mutate({
       username: data.email,
       password: data.password,
@@ -50,33 +40,43 @@ export const Login = () => {
           <Typography component='h1' variant='h5'>
             {t('Sign in')}
           </Typography>
-          <Box component='form' onSubmit={handleSubmit(onSubmitLoginForm)} sx={{ mt: 1 }}>
-            <InputController
-              control={control}
-              name='email'
-              label='Email Address'
-              autoComplete='email'
-              autoFocus
-            />
-            <InputController control={control} name='password' autoComplete='current-password' />
-            <CheckBoxController control={control} name='remember' label={t('Remember me')} />
-
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-              {t('Sign In')}
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href='#' variant='body2'>
-                  {t('Forgot password?')}
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href='#' variant='body2'>
-                  {t('dont have an account')}
-                </Link>
-              </Grid>
+          <FormMui
+            schema={LOGIN_SCHEMA}
+            onSubmit={onSubmit}
+            submitText={t('Sign In')}
+            defaultValues={{}}
+            inputs={[
+              {
+                component: InputController,
+                name: 'email',
+                label: 'Email Address',
+                autoComplete: 'email',
+                autoFocus: true,
+              },
+              {
+                component: InputController,
+                name: 'password',
+                autoComplete: 'current-password',
+              },
+              {
+                component: CheckBoxController,
+                name: 'remember',
+                label: t('Remember me'),
+              },
+            ]}
+          />
+          <Grid container>
+            <Grid item xs>
+              <Link href='#' variant='body2'>
+                {t('Forgot password?')}
+              </Link>
             </Grid>
-          </Box>
+            <Grid item>
+              <Link href='#' variant='body2'>
+                {t('dont have an account')}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </PageLayout>

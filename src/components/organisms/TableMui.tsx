@@ -17,11 +17,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 
 export const TableMui = props => {
-  const { list, headCells, handleDelete, handleEdit } = props
+  const { list, bodyCells, headCells, handleDelete, handleEdit } = props
   const [order, setOrder] = useState<OrderType>('asc')
   const [orderBy, setOrderBy] = useState('calories')
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [selected, setSelected] = useState<readonly number[]>([])
 
   const visibleRows = useMemo(
@@ -117,14 +117,14 @@ export const TableMui = props => {
                         }}
                       />
                     </TableCell>
-                    <TableCell align='right'>{row.id}</TableCell>
-                    <TableCell align='left'>{row.url}</TableCell>
-                    <TableCell component='th' id={labelId} scope='row' padding='none'>
-                      {row.title}
-                    </TableCell>
-                    <TableCell align='right'>{row.price}</TableCell>
-                    <TableCell align='left'>{row.description}</TableCell>
-                    <TableCell align='left'>{row.activated ? 'Yes' : 'No'}</TableCell>
+                    {bodyCells.map(cell => {
+                      return (
+                        <TableCell key={cell.name} align='left'>
+                          {row[cell.name]}
+                        </TableCell>
+                      )
+                    })}
+
                     <TableCell align='right'>
                       <IconButton onClick={() => handleEdit(row.id)}>
                         <EditIcon />

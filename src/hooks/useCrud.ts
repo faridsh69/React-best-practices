@@ -28,10 +28,10 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
     onSuccess: response => {
       queryClient.setQueryData(MODEL_SLUG, list => {
         if (list) {
-          return [...list, response]
+          return [...list, response.data]
         }
 
-        return [response]
+        return [response.data]
       })
       toast.success(t(MODEL_SLUG + ' created successfully'))
     },
@@ -63,7 +63,7 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
       return oldItem
     },
     onSuccess: response => {
-      const updatedData = response
+      const updatedData = response.data
       queryClient.setQueryData(MODEL_SLUG, list =>
         list.map(item => (item.id === updatedData.id ? updatedData : item)),
       )
