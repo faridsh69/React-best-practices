@@ -12,10 +12,10 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
 
   const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[MODEL_SLUG]
 
-  const { data: list, isFetching } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: [MODEL_SLUG],
     queryFn: async () => {
-      if (!listApi) return null
+      if (!listApi) return []
 
       const response = await listApi()
 
@@ -23,6 +23,7 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
     },
     placeholderData: [],
   })
+  const list = data || []
 
   const createMutation = useMutation(createApi, {
     onSuccess: response => {

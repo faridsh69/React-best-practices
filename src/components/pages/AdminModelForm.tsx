@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom'
 
 import { FOOD_SCHEMA } from 'src/configs/schemas'
 import { useCrud } from 'src/hooks/useCrud'
-import { InputController } from 'src/components/organisms/controllers/InputController'
 import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
 import { FormMui } from 'src/components/organisms/FormMui'
 import { Loading } from 'src/components/molecules/Loading'
+import { TextEditorController } from '../organisms/controllers/TextEditorController'
 
 const AdminModelForm = () => {
   const { t } = useTranslation()
@@ -18,6 +18,7 @@ const AdminModelForm = () => {
   const modelObject = useMemo(() => list.find(item => item.id == id), [list, id])
 
   const onSubmit = data => {
+    console.log('1 data', data)
     delete data.avatar
     if (id) {
       updateMutation.mutate(data)
@@ -37,26 +38,21 @@ const AdminModelForm = () => {
         defaultValues={modelObject}
         inputs={[
           {
-            component: InputController,
             name: 'title',
           },
           {
-            component: InputController,
             name: 'url',
             label: 'URL',
           },
           {
-            component: InputController,
             name: 'price',
             type: 'number',
           },
           {
-            component: InputController,
             name: 'discount_price',
             type: 'number',
           },
           {
-            component: InputController,
             name: 'description',
             multiline: true,
             rows: 3,
@@ -67,14 +63,16 @@ const AdminModelForm = () => {
             label: t('Available'),
           },
           {
-            component: InputController,
             name: 'calorie',
             type: 'number',
+          },
+          {
+            component: TextEditorController,
+            name: 'content',
           },
         ]}
       />
 
-      {/* content ckeditor */}
       {/* category_id dropdown */}
       {/* tags, relateds multi-dropdown */}
       {/* image */}

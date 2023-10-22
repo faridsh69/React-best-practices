@@ -30,6 +30,11 @@ const ROUTES: RoutesType = [
         element: <Suspender pageName='AdminModelList' auth />,
       },
       {
+        name: 'admin-profile',
+        path: 'profile',
+        element: <Suspender pageName='AdminProfile' auth />,
+      },
+      {
         name: 'admin-form',
         path: ':model/create',
         element: <Suspender pageName='AdminModelForm' auth />,

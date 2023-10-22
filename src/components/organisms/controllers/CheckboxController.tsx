@@ -1,25 +1,28 @@
 import { Controller } from 'react-hook-form'
 import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText } from '@mui/material'
-import { capitalizeFirstLetter } from 'src/helpers/common'
+
+import { capitalizeFirstLetter, toBool } from 'src/helpers/common'
 
 export const CheckBoxController = props => {
   const { control, name, label } = props
+
+  const inputLabel = label || capitalizeFirstLetter(name)
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { value, ...field }, fieldState: { error } }) => {
+      render={({ field: { value, onChange }, fieldState: { error } }) => {
         return (
-          <FormControl error={!!error}>
+          <FormControl error={toBool(error)}>
             <FormGroup row>
               <FormControlLabel
-                label={label || capitalizeFirstLetter(name)}
-                control={<Checkbox checked={!!value} />}
-                {...field}
+                label={inputLabel}
+                control={<Checkbox checked={toBool(value)} />}
+                onChange={onChange}
               />
             </FormGroup>
-            {error && <FormHelperText>{error?.message}</FormHelperText>}
+            {toBool(error) && <FormHelperText>{error?.message}</FormHelperText>}
           </FormControl>
         )
       }}

@@ -6,7 +6,6 @@ import { OAUTH_API_INFO } from 'src/configs/constants'
 import { LOGIN_SCHEMA } from 'src/configs/schemas'
 import { useAuth } from 'src/hooks/useAuth'
 import { PageLayout } from 'src/components/templates/PageLayout'
-import { InputController } from 'src/components/organisms/controllers/InputController'
 import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
 import { FormMui } from 'src/components/organisms/FormMui'
 
@@ -47,14 +46,12 @@ export const Login = () => {
             defaultValues={{}}
             inputs={[
               {
-                component: InputController,
                 name: 'email',
                 label: 'Email Address',
                 autoComplete: 'email',
                 autoFocus: true,
               },
               {
-                component: InputController,
                 name: 'password',
                 autoComplete: 'current-password',
               },

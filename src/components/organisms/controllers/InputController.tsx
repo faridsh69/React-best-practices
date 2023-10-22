@@ -2,13 +2,15 @@ import React, { useCallback } from 'react'
 import { Controller } from 'react-hook-form'
 import { TextField } from '@mui/material'
 
-import { capitalizeFirstLetter } from 'src/helpers/common'
+import { capitalizeFirstLetter, toBool } from 'src/helpers/common'
 
 export const InputController = props => {
   const { control, name, label, type, ...rest } = props
 
   const inputType =
     type || (name === 'email' ? 'email' : '') || (name === 'password' ? 'password' : '') || 'text'
+
+  const inputLabel = label || capitalizeFirstLetter(name)
 
   const handleOnChange = useCallback(
     (e, onChange) => {
@@ -22,14 +24,13 @@ export const InputController = props => {
     <Controller
       control={control}
       name={name}
-      render={({ field: { value, onBlur, onChange }, fieldState: { error } }) => (
+      render={({ field: { value = '', onChange }, fieldState: { error } }) => (
         <TextField
-          label={label || capitalizeFirstLetter(name)}
+          label={inputLabel}
           type={inputType}
-          value={value || ''}
-          onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleOnChange(e, onBlur)}
+          value={value}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
-          error={!!error}
+          error={toBool(error)}
           helperText={capitalizeFirstLetter(error?.message)}
           fullWidth
           margin='normal'

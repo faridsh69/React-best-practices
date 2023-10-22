@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button } from '@mui/material'
+import { InputController } from './controllers/InputController'
 
 export const FormMui = props => {
   const { inputs, defaultValues, schema, onSubmit, submitText } = props
@@ -14,7 +15,7 @@ export const FormMui = props => {
   return (
     <Box component='form' onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
       {inputs.map(input => {
-        const { component: InputComponent, name, ...rest } = input
+        const { component: InputComponent = InputController, name, ...rest } = input
 
         return <InputComponent control={control} name={name} {...rest} key={name} />
       })}

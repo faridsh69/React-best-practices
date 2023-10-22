@@ -20,7 +20,8 @@ import { useState } from 'react'
 import { ThemeSwitcher } from '../molecules/ThemeSwitcher'
 import { LanguageSwitcher } from '../molecules/LanguageSwitcher'
 import LogoutIcon from '@mui/icons-material/Logout'
-import BadgeIcon from '@mui/icons-material/Badge'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 
 export const Navbar = () => {
   const navigate = useNavigate()
@@ -36,10 +37,6 @@ export const Navbar = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null)
-  }
-
-  const handleNavigateAdmin = () => {
-    navigate('/admin')
   }
 
   return (
@@ -101,9 +98,13 @@ export const Navbar = () => {
         onClose={handleMenuClose}
         sx={{ zIndex: 1201 }}
       >
-        <MenuItem onClick={handleNavigateAdmin} sx={{ gap: 2 }}>
-          <BadgeIcon />
+        <MenuItem onClick={() => navigate('/admin')} sx={{ gap: 2 }}>
+          <AdminPanelSettingsIcon />
           Admin
+        </MenuItem>
+        <MenuItem onClick={() => navigate('/admin/profile')} sx={{ gap: 2 }}>
+          <ManageAccountsIcon />
+          My Profile
         </MenuItem>
         <MenuItem onClick={handleLogout} sx={{ gap: 2 }}>
           <LogoutIcon /> Logout
