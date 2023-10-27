@@ -8,6 +8,7 @@ import { LOCAL_STORAGE_AUTH_USER_EMAIL } from 'src/configs/constants'
 import { FormMui } from 'src/components/organisms/FormMui'
 import { Loading } from 'src/components/molecules/Loading'
 import { RadioController } from 'src/components/organisms/controllers/RadioController'
+import { DateController } from '../organisms/controllers/DateController'
 
 const AdminProfile = () => {
   const { t } = useTranslation()
@@ -36,6 +37,7 @@ const AdminProfile = () => {
             name: 'last_name',
           },
           {
+            component: DateController,
             name: 'birth_date',
           },
           {
