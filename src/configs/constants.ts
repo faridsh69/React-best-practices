@@ -16,6 +16,7 @@
 
 export const LOCAL_STORAGE_APP_KEY = 'APPLICATION'
 export const LOCAL_STORAGE_ACCESS_TOKEN_KEY = 'access_token'
+export const LOCAL_STORAGE_AUTH_USER_EMAIL = 'auth_email'
 
 // export const VALIDATION_REGEXPS = {
 //   phones: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]{6,16}$/g,

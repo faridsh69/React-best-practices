@@ -18,7 +18,6 @@ const AdminModelForm = () => {
   const modelObject = useMemo(() => list.find(item => item.id == id), [list, id])
 
   const onSubmit = data => {
-    console.log('1 data', data)
     delete data.avatar
     if (id) {
       updateMutation.mutate(data)

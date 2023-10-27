@@ -1,17 +1,25 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useCrud } from 'src/hooks/useCrud'
+import { getLocalstorage } from 'src/helpers/common'
 import { PROFILE_SCHEMA } from 'src/configs/schemas'
+import { LOCAL_STORAGE_AUTH_USER_EMAIL } from 'src/configs/constants'
 import { FormMui } from 'src/components/organisms/FormMui'
-import { RadioController } from '../organisms/controllers/RadioController'
+import { Loading } from 'src/components/molecules/Loading'
+import { RadioController } from 'src/components/organisms/controllers/RadioController'
 
 const AdminProfile = () => {
   const { t } = useTranslation()
+  const { list: users, updateMutation } = useCrud('user')
+  const authEmail = getLocalstorage(LOCAL_STORAGE_AUTH_USER_EMAIL)
+  const authUser = useMemo(() => users.find(u => u.email == authEmail), [users, authEmail])
 
   const onSubmit = data => {
-    console.log('1 data', data)
+    updateMutation.mutate(data)
   }
 
-  const user = {}
+  if (authEmail && !authUser) return <Loading />
 
   return (
     <div>
@@ -19,7 +27,7 @@ const AdminProfile = () => {
         schema={PROFILE_SCHEMA}
         onSubmit={onSubmit}
         submitText={t('Update')}
-        defaultValues={user}
+        defaultValues={authUser}
         inputs={[
           {
             name: 'first_name',

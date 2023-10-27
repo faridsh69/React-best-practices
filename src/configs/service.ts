@@ -1,6 +1,13 @@
 import { QueryClient } from 'react-query'
 
-import { createFood, deleteFood, getFoods, updateFood } from 'src/services/apis'
+import {
+  createFood,
+  deleteFood,
+  getFoods,
+  getUsers,
+  updateFood,
+  updateUser,
+} from 'src/services/apis'
 import { errorHandler } from 'src/helpers/errorHandler'
 import { TypeApiKeyMap } from 'src/interfaces'
 
@@ -25,5 +32,9 @@ export const API_KEY_MAP: TypeApiKeyMap = {
     createApi: createFood,
     updateApi: updateFood,
     deleteApi: deleteFood,
+  },
+  user: {
+    listApi: getUsers,
+    updateApi: updateUser,
   },
 }

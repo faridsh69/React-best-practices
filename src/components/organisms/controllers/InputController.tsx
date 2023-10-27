@@ -24,19 +24,21 @@ export const InputController = props => {
     <Controller
       control={control}
       name={name}
-      render={({ field: { value = '', onChange }, fieldState: { error } }) => (
-        <TextField
-          label={inputLabel}
-          type={inputType}
-          value={value}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
-          error={toBool(error)}
-          helperText={capitalizeFirstLetter(error?.message)}
-          fullWidth
-          margin='normal'
-          {...rest}
-        />
-      )}
+      render={({ field: { value = '2', onChange }, fieldState: { error } }) => {
+        return (
+          <TextField
+            label={inputLabel}
+            type={inputType}
+            value={value === null ? '' : value}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
+            error={toBool(error)}
+            helperText={capitalizeFirstLetter(error?.message)}
+            fullWidth
+            margin='normal'
+            {...rest}
+          />
+        )
+      }}
     />
   )
 }

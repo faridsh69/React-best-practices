@@ -16,7 +16,9 @@ export const postLogin: TypeApiMethod = data =>
   })
 
 const VITE_FOOD_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/food`, true)
+const VITE_USER_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/user`, true)
 
+// FOODS
 export const getFoods: TypeApiMethod = data =>
   VITE_FOOD_API_CLIENT.get({
     endpoint: '',
@@ -38,4 +40,17 @@ export const updateFood: TypeApiMethod = data =>
 export const deleteFood: TypeApiMethod = data =>
   VITE_FOOD_API_CLIENT.remove({
     endpoint: `id/${data}`,
+  })
+
+// USERS
+export const getUsers: TypeApiMethod = data =>
+  VITE_USER_API_CLIENT.get({
+    endpoint: '',
+    data,
+  })
+
+export const updateUser: TypeApiMethod = data =>
+  VITE_USER_API_CLIENT.put({
+    endpoint: `id/${data.id}`,
+    data,
   })

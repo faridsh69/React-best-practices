@@ -10,7 +10,7 @@ export const useCrud: TypeUseCrud = MODEL_SLUG => {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
 
-  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[MODEL_SLUG]
+  const { listApi, createApi, updateApi, deleteApi } = API_KEY_MAP[MODEL_SLUG] || {}
 
   const { data, isFetching } = useQuery({
     queryKey: [MODEL_SLUG],
