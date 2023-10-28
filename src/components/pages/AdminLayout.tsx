@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 import { PageLayout } from 'src/components/templates/PageLayout'
 import MemoAdminSidebar from 'src/components/templates/AdminSidebar'
-import { Breadcrumb } from '../templates/Breadcrumb'
+import { Breadcrumb } from '../molecules/Breadcrumb'
 
 const AdminLayout = () => {
   const drawerWidth = 240
