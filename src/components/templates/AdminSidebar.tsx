@@ -11,8 +11,11 @@ import {
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-export const AdminDrawer = props => {
-  const { drawerWidth, sidebarItems } = props
+import { ADMIN_SIDEBAR_ITEMS } from 'src/configs/constants'
+import { toFormalCase } from 'src/helpers/common'
+
+export const AdminSidebar = props => {
+  const { drawerWidth } = props
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
@@ -29,14 +32,19 @@ export const AdminDrawer = props => {
     <>
       <Toolbar />
       <List>
-        {sidebarItems.map(item => (
-          <ListItem key={item.title} disablePadding>
-            <ListItemButton onClick={() => handleNavigate(item.title)}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {ADMIN_SIDEBAR_ITEMS.map(item => {
+          const ItemIcon = item.icon
+          return (
+            <ListItem key={item.title} disablePadding>
+              <ListItemButton onClick={() => handleNavigate(item.title)}>
+                <ListItemIcon>
+                  <ItemIcon />
+                </ListItemIcon>
+                <ListItemText primary={toFormalCase(item.title)} />
+              </ListItemButton>
+            </ListItem>
+          )
+        })}
       </List>
     </>
   )

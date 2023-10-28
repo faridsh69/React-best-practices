@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Box, Button } from '@mui/material'
 
 import { useCrud } from 'src/hooks/useCrud'
@@ -7,11 +7,13 @@ import { TableMui } from 'src/components/organisms/TableMui'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const AdminModelList = () => {
+const AdminList = () => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
 
-  const { list: foods, deleteMutation } = useCrud('food')
+  const navigate = useNavigate()
+  const { model } = useParams()
+
+  const { list: foods, deleteMutation } = useCrud(model)
 
   const handleDelete = useCallback(
     id => {
@@ -99,4 +101,4 @@ const AdminModelList = () => {
   )
 }
 
-export default AdminModelList
+export default AdminList

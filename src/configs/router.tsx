@@ -27,7 +27,7 @@ const ROUTES: RoutesType = [
       {
         name: 'admin-list',
         path: ':model',
-        element: <Suspender pageName='AdminModelList' auth />,
+        element: <Suspender pageName='AdminList' auth />,
       },
       {
         name: 'admin-profile',
@@ -37,17 +37,17 @@ const ROUTES: RoutesType = [
       {
         name: 'admin-form',
         path: ':model/create',
-        element: <Suspender pageName='AdminModelForm' auth />,
+        element: <Suspender pageName='AdminForm' auth />,
       },
       {
         name: 'admin-show',
         path: ':model/:id',
-        element: <Suspender pageName='AdminModelShow' auth />,
+        element: <Suspender pageName='AdminShow' auth />,
       },
       {
         name: 'admin-edit',
         path: ':model/:id/edit',
-        element: <Suspender pageName='AdminModelForm' auth />,
+        element: <Suspender pageName='AdminForm' auth />,
       },
     ],
   },

@@ -9,11 +9,14 @@ import { FormMui } from 'src/components/organisms/FormMui'
 import { Loading } from 'src/components/molecules/Loading'
 import { TextEditorController } from '../organisms/controllers/TextEditorController'
 
-const AdminModelForm = () => {
+const AdminForm = () => {
   const { t } = useTranslation()
 
   const { model, id } = useParams()
+
   const { list, createMutation, updateMutation } = useCrud(model)
+  const { list: categories } = useCrud('category')
+  console.log('1 categories', categories)
 
   const modelObject = useMemo(() => list.find(item => item.id == id), [list, id])
 
@@ -80,4 +83,4 @@ const AdminModelForm = () => {
   )
 }
 
-export default AdminModelForm
+export default AdminForm

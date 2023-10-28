@@ -17,6 +17,7 @@ export const postLogin: TypeApiMethod = data =>
 
 const VITE_FOOD_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/food`, true)
 const VITE_USER_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/user`, true)
+const VITE_CATEGORY_API_CLIENT = createApiClient(`${VITE_API_BASE_URL}/api/category`, true)
 
 // FOODS
 export const getFoods: TypeApiMethod = data =>
@@ -53,4 +54,28 @@ export const updateUser: TypeApiMethod = data =>
   VITE_USER_API_CLIENT.put({
     endpoint: `id/${data.id}`,
     data,
+  })
+
+// FOODS
+export const getCategories: TypeApiMethod = data =>
+  VITE_CATEGORY_API_CLIENT.get({
+    endpoint: '',
+    data,
+  })
+
+export const createCategory: TypeApiMethod = data =>
+  VITE_CATEGORY_API_CLIENT.post({
+    endpoint: '',
+    data,
+  })
+
+export const updateCategory: TypeApiMethod = data =>
+  VITE_CATEGORY_API_CLIENT.put({
+    endpoint: `id/${data.id}`,
+    data,
+  })
+
+export const deleteCategory: TypeApiMethod = data =>
+  VITE_CATEGORY_API_CLIENT.remove({
+    endpoint: `id/${data}`,
   })

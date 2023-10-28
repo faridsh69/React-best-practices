@@ -6,4 +6,7 @@ export type TypeUseCrud = (key: string) => {
   updateMutation: {
     mutate: (data: unknown) => void
   }
+  deleteMutation: {
+    mutate: (data: unknown) => void
+  }
 }
