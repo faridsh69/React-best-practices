@@ -1,31 +1,48 @@
-import { enUS, deDE } from '@mui/material/locale'
-import enFlag from 'src/images/flags/us.png'
-import deFlag from 'src/images/flags/de.png'
-
-export const EN_LANGUAGE = 'en'
-export const DE_LANGUAGE = 'de'
-
-export const MUI_LOCALES = {
-  [EN_LANGUAGE]: enUS,
-  [DE_LANGUAGE]: deDE,
-}
-
-export const FLAG_LOCALES = {
-  [EN_LANGUAGE]: enFlag,
-  [DE_LANGUAGE]: deFlag,
-}
-
-export const LIGHT_THEME_NAME = 'light'
-export const DARK_THEME_NAME = 'dark'
-
 export const LIGHT_THEME = {
-  palette: {
-    mode: 'light',
-    // primary: {
-    //   main: orange[500],
-    // },
-  },
   components: {
+    MuiFormControl: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginLeft: '0px',
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {},
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {},
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {},
+        outlined: {},
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {},
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
@@ -34,18 +51,41 @@ export const LIGHT_THEME = {
       },
     },
   },
-}
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
 
-export const DARK_THEME = {
+      mobile: 0,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1200,
+      bigDesktop: 1800,
+    },
+  },
   palette: {
-    mode: 'dark',
+    mode: 'light',
     // primary: {
-    //   main: green[500],
+    //   main: '#f00',
+    // },
+    // secondary: {
+    //   main: '#0f0',
     // },
   },
 }
 
+export const LIGHT_THEME_NAME = 'light'
+export const DARK_THEME_NAME = 'dark'
+
 export const THEMES = {
   [LIGHT_THEME_NAME]: LIGHT_THEME,
-  [DARK_THEME_NAME]: DARK_THEME,
+  [DARK_THEME_NAME]: {
+    ...LIGHT_THEME,
+    palette: {
+      mode: 'dark',
+    },
+  },
 }

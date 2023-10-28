@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 
-import { DE_LANGUAGE, EN_LANGUAGE, FLAG_LOCALES } from 'src/configs/theme'
+import { DE_LANGUAGE, EN_LANGUAGE, FLAG_LOCALES } from 'src/configs/locale'
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation()

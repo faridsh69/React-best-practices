@@ -6,6 +6,7 @@ import DinnerDiningIcon from '@mui/icons-material/DinnerDining'
 
 import { PageLayout } from 'src/components/templates/PageLayout'
 import { AdminDrawer } from 'src/components/templates/AdminDrawer'
+import { Breadcrumb } from '../templates/Breadcrumb'
 
 const AdminLayout = () => {
   const drawerWidth = 240
@@ -33,6 +34,7 @@ const AdminLayout = () => {
           component='main'
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
+          <Breadcrumb />
           <Outlet />
         </Box>
       </Box>

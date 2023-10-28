@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { Controller } from 'react-hook-form'
 import { TextField } from '@mui/material'
 
-import { capitalizeFirstLetter, toBool } from 'src/helpers/common'
+import { toFormalCase, toBool } from 'src/helpers/common'
 
 export const InputController = props => {
   const { control, name, label, type, ...rest } = props
@@ -10,7 +10,7 @@ export const InputController = props => {
   const inputType =
     type || (name === 'email' ? 'email' : '') || (name === 'password' ? 'password' : '') || 'text'
 
-  const inputLabel = label || capitalizeFirstLetter(name)
+  const inputLabel = label || toFormalCase(name)
 
   const handleOnChange = useCallback(
     (e, onChange) => {
@@ -24,7 +24,7 @@ export const InputController = props => {
     <Controller
       control={control}
       name={name}
-      render={({ field: { value = '2', onChange }, fieldState: { error } }) => {
+      render={({ field: { value = '', onChange }, fieldState: { error } }) => {
         return (
           <TextField
             label={inputLabel}
@@ -32,8 +32,7 @@ export const InputController = props => {
             value={value === null ? '' : value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
             error={toBool(error)}
-            helperText={capitalizeFirstLetter(error?.message)}
-            fullWidth
+            helperText={toFormalCase(error?.message)}
             margin='normal'
             {...rest}
           />

@@ -8,7 +8,8 @@ import { LOCAL_STORAGE_AUTH_USER_EMAIL } from 'src/configs/constants'
 import { FormMui } from 'src/components/organisms/FormMui'
 import { Loading } from 'src/components/molecules/Loading'
 import { RadioController } from 'src/components/organisms/controllers/RadioController'
-import { DateController } from '../organisms/controllers/DateController'
+import { DateController } from 'src/components/organisms/controllers/DateController'
+import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
 
 const AdminProfile = () => {
   const { t } = useTranslation()
@@ -17,6 +18,7 @@ const AdminProfile = () => {
   const authUser = useMemo(() => users.find(u => u.email == authEmail), [users, authEmail])
 
   const onSubmit = data => {
+    delete data.name
     updateMutation.mutate(data)
   }
 
@@ -37,26 +39,27 @@ const AdminProfile = () => {
             name: 'last_name',
           },
           {
-            component: DateController,
-            name: 'birth_date',
+            component: CheckBoxController,
+            name: 'activated',
           },
           {
             component: RadioController,
             name: 'gender',
             options: [
               {
-                value: 'female',
-                label: 'female',
-              },
-              {
-                value: 'male',
+                value: '1',
                 label: 'male',
               },
               {
-                value: 'other',
-                label: 'other',
+                value: '0',
+                label: 'female',
               },
             ],
+          },
+
+          {
+            component: DateController,
+            name: 'birth_date',
           },
         ]}
       />

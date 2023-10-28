@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill'
 import { Controller } from 'react-hook-form'
 import { FormLabel, FormHelperText } from '@mui/material'
-import { capitalizeFirstLetter, toBool } from 'src/helpers/common'
+import { toFormalCase, toBool } from 'src/helpers/common'
 
 export const TextEditorController = props => {
   const { control, name, label } = props
@@ -36,7 +36,7 @@ export const TextEditorController = props => {
       name={name}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <>
-          <FormLabel error={toBool(error)}>{label || capitalizeFirstLetter(name)}</FormLabel>
+          <FormLabel error={toBool(error)}>{label || toFormalCase(name)}</FormLabel>
           <ReactQuill
             value={value}
             onChange={onChange}
