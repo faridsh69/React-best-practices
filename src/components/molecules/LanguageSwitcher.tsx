@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
+import { FormControl, Select, MenuItem } from '@mui/material'
 
 import { DE_LANGUAGE, EN_LANGUAGE, FLAG_LOCALES } from 'src/configs/locale'
 
@@ -12,12 +12,8 @@ export const LanguageSwitcher = () => {
 
   return (
     <FormControl size='small'>
-      <InputLabel id='demo-simple-select-label' htmlFor='open-select' />
       <Select
-        label='label'
-        labelId='demo-simple-select-label'
         value={i18n.language}
-        name='language'
         onChange={changeLanguage}
         inputProps={{
           id: 'open-select',

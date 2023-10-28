@@ -26,8 +26,8 @@ export const DateController = props => {
       name={name}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
         return (
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <FormControl error={toBool(error)} sx={{ width: '300px' }}>
+          <FormControl error={toBool(error)} sx={{ width: '300px', mb: 2 }}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 label={inputLabel}
                 value={changeToDatePickerFormat(value)}
@@ -35,8 +35,8 @@ export const DateController = props => {
                 {...rest}
               />
               {<FormHelperText>{toFormalCase(error?.message)}</FormHelperText>}
-            </FormControl>
-          </LocalizationProvider>
+            </LocalizationProvider>
+          </FormControl>
         )
       }}
     />

@@ -10,6 +10,7 @@ import { Loading } from 'src/components/molecules/Loading'
 import { RadioController } from 'src/components/organisms/controllers/RadioController'
 import { DateController } from 'src/components/organisms/controllers/DateController'
 import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
+import { TextEditorController } from '../organisms/controllers/TextEditorController'
 
 const AdminProfile = () => {
   const { t } = useTranslation()
@@ -18,7 +19,6 @@ const AdminProfile = () => {
   const authUser = useMemo(() => users.find(u => u.email == authEmail), [users, authEmail])
 
   const onSubmit = data => {
-    delete data.name
     updateMutation.mutate(data)
   }
 
@@ -56,10 +56,27 @@ const AdminProfile = () => {
               },
             ],
           },
-
           {
-            component: DateController,
             name: 'birth_date',
+            component: DateController,
+          },
+          {
+            name: 'description',
+            component: TextEditorController,
+          },
+          {
+            name: 'email',
+            label: 'Email Address',
+          },
+          {
+            name: 'national_code',
+            type: 'number',
+          },
+          {
+            name: 'phone',
+          },
+          {
+            name: 'website',
           },
         ]}
       />

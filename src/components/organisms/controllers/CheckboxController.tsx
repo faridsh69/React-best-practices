@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form'
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@mui/material'
 
 import { toFormalCase, toBool } from 'src/helpers/common'
 
@@ -15,13 +15,11 @@ export const CheckBoxController = props => {
       render={({ field: { value, onChange }, fieldState: { error } }) => {
         return (
           <FormControl error={toBool(error)}>
-            <FormGroup>
-              <FormControlLabel
-                label={inputLabel}
-                control={<Checkbox checked={toBool(value)} />}
-                onChange={onChange}
-              />
-            </FormGroup>
+            <FormControlLabel
+              label={inputLabel}
+              control={<Checkbox checked={toBool(value)} />}
+              onChange={onChange}
+            />
             <FormHelperText>{toFormalCase(error?.message)}</FormHelperText>
           </FormControl>
         )

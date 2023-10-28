@@ -28,7 +28,7 @@ export const RadioController = props => {
       name={name}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
         return (
-          <FormControl error={toBool(error)} sx={{ my: 3 }}>
+          <FormControl error={toBool(error)} sx={{ my: 2 }}>
             <FormLabel>{inputLabel}</FormLabel>
             <RadioGroup value={value} name={name} defaultChecked={value} onChange={onChange}>
               {options.map(option => {

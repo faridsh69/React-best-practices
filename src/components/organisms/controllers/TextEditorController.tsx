@@ -1,51 +1,30 @@
 import ReactQuill from 'react-quill'
 import { Controller } from 'react-hook-form'
-import { FormLabel, FormHelperText } from '@mui/material'
+import { FormLabel, FormControl, FormHelperText } from '@mui/material'
+
 import { toFormalCase, toBool } from 'src/helpers/common'
+import { TEXT_EDITOR_FORMATS, TEXT_EDITOR_MODULES } from 'src/configs/textEditor'
 
 export const TextEditorController = props => {
   const { control, name, label } = props
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-      ['link', 'image'],
-      ['clean'],
-    ],
-  }
-
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-  ]
 
   return (
     <Controller
       control={control}
       name={name}
       render={({ field: { value, onChange }, fieldState: { error } }) => (
-        <>
-          <FormLabel error={toBool(error)}>{label || toFormalCase(name)}</FormLabel>
+        <FormControl error={toBool(error)} style={{ height: '250px' }}>
+          <FormLabel>{label || toFormalCase(name)}</FormLabel>
           <ReactQuill
             value={value}
             onChange={onChange}
-            modules={modules}
-            formats={formats}
+            modules={TEXT_EDITOR_MODULES}
+            formats={TEXT_EDITOR_FORMATS}
             theme='snow'
+            style={{ height: '150px' }}
           />
-          <FormHelperText error={toBool(error)}>{error?.message}</FormHelperText>
-        </>
+          <FormHelperText sx={{ mt: 6 }}>{toFormalCase(error?.message)}</FormHelperText>
+        </FormControl>
       )}
     />
   )

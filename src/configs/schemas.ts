@@ -1,13 +1,8 @@
 import * as yup from 'yup'
 
-// const VALIDATION_REGEXPS = {
-//   phones: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]{6,16}$/g,
-//   email: /^(\S+@\S+\.\S+)$/gm,
-//   first_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
-//   name_with_space: /^([\u00C0-\u017Fa-zA-Z.\-\s']+)$/g,
-//   last_name: /^([\u00C0-\u017Fa-zA-Z']+)/g,
-//   hasNoSpace: /^\S+$/,
-// }
+const REGEXS = {
+  phone: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]{6,16}$/g,
+}
 
 export const LOGIN_SCHEMA = yup.object({
   email: yup.string().email().required(),
@@ -33,4 +28,9 @@ export const PROFILE_SCHEMA = yup.object({
   birth_date: yup.string().required(),
   gender: yup.string().oneOf(['1', '0'], 'Select one option'),
   activated: yup.bool().oneOf([true], 'Field must be checked'),
+  description: yup.string().nullable().min(10),
+  email: yup.string().email().required(),
+  phone: yup.string().matches(REGEXS.phone, 'Phone number is not valid'),
+  national_code: yup.string().nullable().min(10).max(10),
+  website: yup.string().nullable().url(),
 })

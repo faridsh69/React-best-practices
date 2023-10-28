@@ -19,6 +19,16 @@ export const FormMui = props => {
     // @ts-ignore
     data => {
       delete data.avatar
+      delete data.name
+      delete data.images
+      delete data.videos
+      delete data.audios
+      delete data.documents
+      delete data.likes
+      delete data.category
+      delete data.tags
+      delete data.relateds
+
       console.log('1 data', data)
 
       onSubmit(data)
