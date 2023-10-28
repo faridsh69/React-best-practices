@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { Controller } from 'react-hook-form'
 import { TextField } from '@mui/material'
 
-import { toFormalCase, toBool } from 'src/helpers/common'
+import { toFormalCase, toBool, convertNullToEmptyString } from 'src/helpers/common'
 
 export const InputController = props => {
   const { control, name, label, type, ...rest } = props
@@ -29,8 +29,8 @@ export const InputController = props => {
           <TextField
             label={inputLabel}
             type={inputType}
-            value={value === null ? '' : value}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e, onChange)}
+            value={convertNullToEmptyString(value)}
+            onChange={e => handleOnChange(e, onChange)}
             error={toBool(error)}
             helperText={toFormalCase(error?.message)}
             margin='normal'

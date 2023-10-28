@@ -11,14 +11,8 @@ export const LanguageSwitcher = () => {
   }
 
   return (
-    <FormControl size='small'>
-      <Select
-        value={i18n.language}
-        onChange={changeLanguage}
-        inputProps={{
-          id: 'open-select',
-        }}
-      >
+    <FormControl size='small' variant='filled'>
+      <Select value={i18n.language} onChange={changeLanguage}>
         {Object.keys(FLAG_LOCALES).map(locale => (
           <MenuItem value={locale} key={locale}>
             {/* @ts-ignore */}

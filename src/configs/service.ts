@@ -3,13 +3,17 @@ import { QueryClient } from 'react-query'
 import {
   createCategory,
   createFood,
+  createTag,
   deleteCategory,
   deleteFood,
+  deleteTag,
   getCategories,
   getFoods,
+  getTags,
   getUsers,
   updateCategory,
   updateFood,
+  updateTag,
   updateUser,
 } from 'src/services/apis'
 import { errorHandler } from 'src/helpers/errorHandler'
@@ -46,5 +50,11 @@ export const API_KEY_MAP: TypeApiKeyMap = {
     createApi: createCategory,
     updateApi: updateCategory,
     deleteApi: deleteCategory,
+  },
+  tag: {
+    listApi: getTags,
+    createApi: createTag,
+    updateApi: updateTag,
+    deleteApi: deleteTag,
   },
 }

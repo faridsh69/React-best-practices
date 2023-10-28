@@ -172,3 +172,5 @@ export const toFormalCase = (string?: string): string => {
 }
 
 export const toBool = value => !!value
+
+export const convertNullToEmptyString = value => (value === null ? '' : value)

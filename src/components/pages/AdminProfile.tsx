@@ -10,7 +10,6 @@ import { Loading } from 'src/components/molecules/Loading'
 import { RadioController } from 'src/components/organisms/controllers/RadioController'
 import { DateController } from 'src/components/organisms/controllers/DateController'
 import { CheckBoxController } from 'src/components/organisms/controllers/CheckboxController'
-import { TextEditorController } from '../organisms/controllers/TextEditorController'
 
 const AdminProfile = () => {
   const { t } = useTranslation()
@@ -19,6 +18,9 @@ const AdminProfile = () => {
   const authUser = useMemo(() => users.find(u => u.email == authEmail), [users, authEmail])
 
   const onSubmit = data => {
+    delete data.tags
+    delete data.relateds
+
     updateMutation.mutate(data)
   }
 
@@ -39,12 +41,12 @@ const AdminProfile = () => {
             name: 'last_name',
           },
           {
-            component: CheckBoxController,
             name: 'activated',
+            component: CheckBoxController,
           },
           {
-            component: RadioController,
             name: 'gender',
+            component: RadioController,
             options: [
               {
                 value: '1',
@@ -62,11 +64,11 @@ const AdminProfile = () => {
           },
           {
             name: 'description',
-            component: TextEditorController,
+            multiline: true,
+            rows: 3,
           },
           {
             name: 'email',
-            label: 'Email Address',
           },
           {
             name: 'national_code',

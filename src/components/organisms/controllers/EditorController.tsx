@@ -5,7 +5,7 @@ import { FormLabel, FormControl, FormHelperText } from '@mui/material'
 import { toFormalCase, toBool } from 'src/helpers/common'
 import { TEXT_EDITOR_FORMATS, TEXT_EDITOR_MODULES } from 'src/configs/textEditor'
 
-export const TextEditorController = props => {
+export const EditorController = props => {
   const { control, name, label } = props
 
   return (

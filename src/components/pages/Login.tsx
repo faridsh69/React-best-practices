@@ -56,8 +56,8 @@ export const Login = () => {
                 autoComplete: 'current-password',
               },
               {
-                component: CheckBoxController,
                 name: 'remember',
+                component: CheckBoxController,
                 label: t('Remember me'),
               },
             ]}

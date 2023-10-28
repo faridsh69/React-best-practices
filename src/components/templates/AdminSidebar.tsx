@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import {
   Box,
   Drawer,
@@ -13,12 +13,15 @@ import { useNavigate } from 'react-router-dom'
 
 import { ADMIN_SIDEBAR_ITEMS } from 'src/configs/constants'
 import { toFormalCase } from 'src/helpers/common'
+import { useCrud } from 'src/hooks/useCrud'
 
-export const AdminSidebar = props => {
+const AdminSidebar = props => {
   const { drawerWidth } = props
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
+  useCrud('category')
+  useCrud('tag')
 
   const handleNavigate = route => {
     navigate(route)
@@ -79,3 +82,5 @@ export const AdminSidebar = props => {
     </Box>
   )
 }
+
+export default memo(AdminSidebar)
