@@ -26,6 +26,7 @@ export const FormMui = props => {
       delete data.documents
       delete data.likes
       delete data.category
+      delete data['main-image']
 
       console.log('1 data', data)
 
