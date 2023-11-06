@@ -66,11 +66,12 @@ const AdminForm = () => {
 
   return (
     <FormMui
-      schema={FOOD_SCHEMA}
+      schema={FOOD_SCHEMA} // @TODO 1 change it for each model
       onSubmit={onSubmit}
       submitText={id ? t('Update') : t('Create')}
       defaultValues={modelObject}
       inputs={[
+        // @TODO 2 change it for each model
         {
           name: 'title',
         },

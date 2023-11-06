@@ -13,7 +13,7 @@ const AdminList = () => {
   const navigate = useNavigate()
   const { model } = useParams()
 
-  const { list: foods, deleteMutation } = useCrud(model)
+  const { list, deleteMutation } = useCrud(model)
 
   const handleDelete = useCallback(
     id => {
@@ -22,7 +22,7 @@ const AdminList = () => {
     [deleteMutation],
   )
 
-  const handleEdit = id => navigate(`/admin/food/${id}/edit`)
+  const handleEdit = id => navigate(`/admin/${model}/${id}/edit`)
 
   const headCells = [
     {
@@ -87,11 +87,11 @@ const AdminList = () => {
 
   return (
     <Box>
-      <Button component={Link} to={'/admin/food/create'}>
+      <Button component={Link} to={`/admin/${model}/create`}>
         {t('Create New Record')}
       </Button>
       <TableMui
-        list={foods}
+        list={list}
         headCells={headCells}
         bodyCells={bodyCells}
         handleDelete={handleDelete}
