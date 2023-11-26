@@ -1,15 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { Home } from 'src/components/pages/Home'
+import { Menu } from 'src/components/pages/Menu'
 import { Suspender } from 'src/components/organisms/Suspender'
 import { ErrorPage } from 'src/components/molecules/ErrorPage'
 import { RoutesType } from 'src/interfaces'
 
 const ROUTES: RoutesType = [
   {
-    name: 'home',
+    name: 'menu',
     path: '/',
-    element: <Home />,
+    element: <Menu />,
     errorElement: <ErrorPage />,
   },
   {

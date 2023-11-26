@@ -9,6 +9,7 @@ import {
   deleteTag,
   getCategories,
   getFoods,
+  getMenuData,
   getTags,
   getUsers,
   updateCategory,
@@ -56,5 +57,8 @@ export const API_KEY_MAP: TypeApiKeyMap = {
     createApi: createTag,
     updateApi: updateTag,
     deleteApi: deleteTag,
+  },
+  menu: {
+    listApi: getMenuData,
   },
 }
