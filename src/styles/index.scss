@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Ember';
+  src: url('src/styles/fonts/ember/AmazonEmber_W_Rg.eot');
+  src:
+    url('src/styles/fonts/ember/AmazonEmber_W_Rg.eot?#iefix') format('embedded-opentype'),
+    url('src/styles/fonts/ember/AmazonEmber_W_Rg.woff') format('woff'),
+    url('src/styles/fonts/ember/AmazonEmber_Rg.ttf') format('truetype');
+}
+
+* {
+  font-family: 'Ember' !important;
+}
+
+.categories {
+  &-swiper {
+    // width: 100%;
+    // height: 100%;
+
+    &-slide {
+      width: auto;
+
+      &-card {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding-bottom: 40px;
+
+        &-header {
+          width: 180px;
+          height: 180px;
+          background: rgba(0, 0, 0, 0.04);
+          border-radius: 50%;
+          transition: border-radius 0.7s;
+
+          &-image {
+            width: 130px;
+            height: 130px;
+            margin: 25px auto;
+            user-select: none;
+            cursor: pointer;
+          }
+        }
+
+        &-title {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 24px;
+          cursor: default;
+          user-select: none;
+        }
+      }
+    }
+
+    .swiper-slide-active {
+      .categories-swiper-slide-card-header {
+        border-radius: 0%;
+      }
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 600px;
+  max-width: 100%;
+  margin: auto;
+
+  &-category {
+    padding: 10px;
+
+    &-seperator {
+      height: 12px;
+      display: block;
+      background-image: linear-gradient(
+        360deg,
+        rgba(0, 0, 0, 0.0001) 0,
+        rgba(0, 0, 0, 0.08) 88%,
+        rgba(0, 0, 0, 0.16) 100%
+      );
+
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.0001) 4.3%,
+        #000 50%,
+        rgba(255, 255, 255, 0.0001) 95.7%
+      );
+    }
+
+    &-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+
+    &-foods {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      &-food {
+      }
+    }
+  }
+}
+
+.food-categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 400px;
+}

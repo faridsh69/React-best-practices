@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PageLayout } from 'src/components/templates/PageLayout'
 import { useCrud } from 'src/hooks/useCrud'
 import {
@@ -32,22 +33,26 @@ export const Menu = () => {
       <div className='categories'>
         {foodCategories.length && (
           <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
+            slidesPerView='auto'
+            centeredSlides={true}
+            spaceBetween={48}
             pagination={{
               clickable: true,
             }}
             modules={[Pagination]}
-            className='categories-Swiper'
+            className='categories-swiper'
           >
             {foodCategories.map(category => {
               return (
-                <SwiperSlide key={category.id} className='categories-slide'>
-                  <div className='categories-card'>
-                    <div>
-                      <img src={category.avatar} className='categories-image' />
+                <SwiperSlide key={category.id} className='categories-swiper-slide'>
+                  <div className='categories-swiper-slide-card'>
+                    <div className='categories-swiper-slide-card-header'>
+                      <img
+                        src={category.avatar}
+                        className='categories-swiper-slide-card-header-image'
+                      />
                     </div>
-                    <div className='categories-title'>{category.title}</div>
+                    <div className='categories-swiper-slide-card-title'>{category.title}</div>
                   </div>
                 </SwiperSlide>
               )
@@ -55,58 +60,62 @@ export const Menu = () => {
           </Swiper>
         )}
       </div>
-      {foodCategories.length &&
-        foodCategories.map(category => {
-          return (
-            <div className='food-categories'>
-              <div className='category-seperator' />
-              <div className='food-category-header'>{category.title}</div>
-              {category.foods.map(food => {
-                return (
-                  <Card key={food.id}>
-                    <CardHeader
-                      avatar={
-                        <Avatar sx={{ bgcolor: 'red' }} aria-label='recipe'>
-                          R
-                        </Avatar>
-                      }
-                      action={
-                        <IconButton aria-label='settings'>
-                          <MoreVertIcon />
-                        </IconButton>
-                      }
-                      title={food.title}
-                      subheader={
-                        <div>
-                          <del>{food.price}</del> {food.discount_price} Euro
-                        </div>
-                      }
-                    />
-                    <CardMedia
-                      component='img'
-                      height='194'
-                      image={food['main-image']}
-                      alt={food.ttitle}
-                    />
-                    <CardContent>
-                      <Typography variant='body2' color='text.secondary'>
-                        {food.description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                      <IconButton aria-label='add to favorites'>
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton aria-label='share'>
-                        <ShareIcon />
-                      </IconButton>
-                    </CardActions>
-                  </Card>
-                )
-              })}
-            </div>
-          )
-        })}
+      <div className='menu'>
+        {foodCategories.length &&
+          foodCategories.map(category => {
+            return (
+              <div className='menu-category'>
+                <div className='menu-category-seperator' />
+                <div className='menu-category-title'>{category.title}</div>
+                <div className='menu-category-foods'>
+                  {category.foods.map(food => {
+                    return (
+                      <Card key={food.id} className='menu-category-foods-food'>
+                        <CardHeader
+                          avatar={
+                            <Avatar sx={{ bgcolor: 'red' }} aria-label='recipe'>
+                              R
+                            </Avatar>
+                          }
+                          action={
+                            <IconButton aria-label='settings'>
+                              <MoreVertIcon />
+                            </IconButton>
+                          }
+                          title={food.title}
+                          subheader={
+                            <div>
+                              <del>{food.price}</del> {food.discount_price} Euro
+                            </div>
+                          }
+                        />
+                        <CardMedia
+                          component='img'
+                          height='194'
+                          image={food['main-image']}
+                          alt={food.ttitle}
+                        />
+                        <CardContent>
+                          <Typography variant='body2' color='text.secondary'>
+                            {food.description}
+                          </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                          <IconButton aria-label='add to favorites'>
+                            <FavoriteIcon />
+                          </IconButton>
+                          <IconButton aria-label='share'>
+                            <ShareIcon />
+                          </IconButton>
+                        </CardActions>
+                      </Card>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+      </div>
     </PageLayout>
   )
 }
