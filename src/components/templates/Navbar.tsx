@@ -1,19 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Button,
-  Toolbar,
-  Typography,
-  MenuItem,
-  Menu,
-  Badge,
-} from '@mui/material'
+import { AppBar, Box, IconButton, Button, Toolbar, Typography, MenuItem, Menu } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import MoreIcon from '@mui/icons-material/MoreVert'
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 import { useAuth } from 'src/hooks/useAuth'
 import { getToken } from 'src/helpers/auth'
 import { useState } from 'react'
@@ -57,14 +45,9 @@ export const Navbar = () => {
           component='div'
           sx={{ display: { xs: 'none', sm: 'block' } }}
         >
-          Digital Menu
+          Restaurant Digital Menu
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton size='large' aria-label='show 17 new notifications' color='inherit'>
-          <Badge badgeContent={17} color='error'>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
         <LanguageSwitcher />
         <ThemeSwitcher />
         {!accessToken && (
@@ -77,11 +60,6 @@ export const Navbar = () => {
             <AccountCircle />
           </IconButton>
         )}
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <IconButton size='large' color='inherit'>
-            <MoreIcon />
-          </IconButton>
-        </Box>
       </Toolbar>
       <Menu
         anchorOrigin={{

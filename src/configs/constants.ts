@@ -20,7 +20,7 @@ export const META_TAGS = {
 
 export const OAUTH_API_INFO = {
   grant_type: 'password',
-  client_id: VITE_CLIENT_ID,
+  client_id: +VITE_CLIENT_ID,
   client_secret: VITE_CLIENT_SECRET,
 }
 

@@ -8,7 +8,7 @@
 }
 
 * {
-  font-family: 'Ember' !important;
+  // font-family: 'Ember' !important;
 }
 
 .categories {
@@ -54,7 +54,7 @@
 
     .swiper-slide-active {
       .categories-swiper-slide-card-header {
-        border-radius: 0%;
+        border-radius: 5%;
       }
     }
   }
@@ -102,6 +102,59 @@
       gap: 12px;
 
       &-food {
+        display: flex;
+        // border: 1px solid #f5f5f5;
+        background-color: #f7f7f7;
+
+        &-image {
+          width: 150px !important;
+          min-width: 150px !important;
+          height: 150px;
+        }
+
+        &-content {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          width: 100%;
+          padding: 12px 8px !important;
+          position: relative;
+
+          &-title {
+            font-size: 14px !important;
+            font-weight: 400 !important;
+          }
+
+          &-description {
+            font-size: 12px !important;
+            color: rgb(15, 17, 17) !important;
+            font-weight: 300 !important;
+          }
+
+          &-price {
+            display: flex;
+            flex-direction: row;
+            gap: 0px;
+
+            span {
+              font-size: 13px !important;
+              font-weight: 400 !important;
+            }
+
+            b {
+              font-size: 22px !important;
+              font-weight: 400 !important;
+              line-height: 22px;
+            }
+          }
+
+          &-actions {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding: 0px !important;
+          }
+        }
       }
     }
   }

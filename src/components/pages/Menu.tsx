@@ -1,25 +1,21 @@
-// @ts-nocheck
-import { PageLayout } from 'src/components/templates/PageLayout'
-import { useCrud } from 'src/hooks/useCrud'
-import {
-  Typography,
-  Card,
-  CardHeader,
-  Avatar,
-  IconButton,
-  CardMedia,
-  CardContent,
-  CardActions,
-} from '@mui/material'
-import { SkeletonBox } from '../organisms/AccordionMui'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
+// @xts-nocheck
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import ShareIcon from '@mui/icons-material/Share'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import { Typography, Card, IconButton, CardMedia, CardContent, CardActions } from '@mui/material'
+
+import { SkeletonBox } from 'src/components/organisms/AccordionMui'
+import { CategoryIcon } from 'src/components/molecules/CategoryIcon'
+import { PageLayout } from 'src/components/templates/PageLayout'
+import { useCrud } from 'src/hooks/useCrud'
+import { useTranslation } from 'react-i18next'
 
 export const Menu = () => {
   const { list: foodCategories } = useCrud('menu')
+
+  const { t } = useTranslation()
 
   return (
     <PageLayout>
@@ -47,8 +43,8 @@ export const Menu = () => {
                 <SwiperSlide key={category.id} className='categories-swiper-slide'>
                   <div className='categories-swiper-slide-card'>
                     <div className='categories-swiper-slide-card-header'>
-                      <img
-                        src={category.avatar}
+                      <CategoryIcon
+                        category={category}
                         className='categories-swiper-slide-card-header-image'
                       />
                     </div>
@@ -63,6 +59,8 @@ export const Menu = () => {
       <div className='menu'>
         {foodCategories.length &&
           foodCategories.map(category => {
+            if (!category.foods.length) return <></>
+
             return (
               <div className='menu-category'>
                 <div className='menu-category-seperator' />
@@ -71,43 +69,39 @@ export const Menu = () => {
                   {category.foods.map(food => {
                     return (
                       <Card key={food.id} className='menu-category-foods-food'>
-                        <CardHeader
-                          avatar={
-                            <Avatar sx={{ bgcolor: 'red' }} aria-label='recipe'>
-                              R
-                            </Avatar>
-                          }
-                          action={
-                            <IconButton aria-label='settings'>
-                              <MoreVertIcon />
-                            </IconButton>
-                          }
-                          title={food.title}
-                          subheader={
-                            <div>
-                              <del>{food.price}</del> {food.discount_price} Euro
-                            </div>
-                          }
-                        />
                         <CardMedia
+                          className='menu-category-foods-food-image'
                           component='img'
-                          height='194'
                           image={food['main-image']}
-                          alt={food.ttitle}
+                          alt={t(food.title)}
                         />
-                        <CardContent>
-                          <Typography variant='body2' color='text.secondary'>
-                            {food.description}
+                        <CardContent className='menu-category-foods-food-content'>
+                          <Typography className='menu-category-foods-food-content-title'>
+                            {t(food.title)}
                           </Typography>
+                          <Typography className='menu-category-foods-food-content-description'>
+                            {t(food.description)}
+                          </Typography>
+                          <Typography className='menu-category-foods-food-content-price'>
+                            <span>€</span>
+                            <b>{food.price}</b>
+                            <span>99</span>
+                          </Typography>
+                          <CardActions className='menu-category-foods-food-content-actions'>
+                            <IconButton aria-label='add to favorites'>
+                              <FavoriteIcon fontSize='small' sx={{ color: 'rgb(233, 30, 99)' }} />
+                            </IconButton>
+                            <IconButton aria-label='share'>
+                              <ShareIcon fontSize='small' color='primary' />
+                            </IconButton>
+                            <IconButton aria-label='plus'>
+                              <AddShoppingCartIcon
+                                fontSize='small'
+                                sx={{ color: 'rgb(46, 125, 50)' }}
+                              />
+                            </IconButton>
+                          </CardActions>
                         </CardContent>
-                        <CardActions disableSpacing>
-                          <IconButton aria-label='add to favorites'>
-                            <FavoriteIcon />
-                          </IconButton>
-                          <IconButton aria-label='share'>
-                            <ShareIcon />
-                          </IconButton>
-                        </CardActions>
                       </Card>
                     )
                   })}
